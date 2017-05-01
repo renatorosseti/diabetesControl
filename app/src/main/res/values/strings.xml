@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Instameal</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_meal">MealActivity</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="user_name">username</string>
+    <string name="password">password</string>
+    <string name="log_in">Log in</string>
+    <string name="title_activity_main">Instameal</string>
+    <string name="username_error">Username cannot be empty</string>
+    <string name="password_error">Password cannot be empty</string>
+
+    <string name="picture">Picture</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+
+    <string name="next">Próximo</string>
+    <string name="before">Antes: </string>
+    <string name="after">Depois: </string>
+    <string name="dosage">Dosagem: </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="dosage_insulin_array">
+        <item>1.0</item>
+        <item>1.5</item>
+        <item>2.0</item>
+        <item>2.5</item>
+        <item>3.0</item>
+        <item>3.5</item>
+        <item>4.0</item>
+        <item>4.5</item>
+        <item>5.0</item>
+        <item>6.0</item>
+        <item>7.0</item>
+        <item>8.0</item>
+        <item>9.0</item>
+        <item>10.0</item>
+        <item>11.0</item>
+        <item>12.0</item>
+        <item>13.0</item>
+        <item>14.0</item>
+        <item>15.0</item>
+    </string-array>
+
+    <string-array name="glycemias_array">
+        <item>Abaixo de 60</item>
+        <item>Entre 61 e 80</item>
+        <item>Entre 81 e 100</item>
+        <item>Entre 101 e 130</item>
+        <item>Entre 131 e 160</item>
+        <item>Entre 161 e 200</item>
+        <item>Entre 201 e 250</item>
+        <item>Entre 251 e 300</item>
+        <item>Entre 301 e 350</item>
+    </string-array>
+</resources>

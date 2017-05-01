@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.diabetes.instameal.meal.MealActivity">
+    <item
+        android:id="@+id/confirm_meal"
+        android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="100"
+        android:title="@string/next"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>
