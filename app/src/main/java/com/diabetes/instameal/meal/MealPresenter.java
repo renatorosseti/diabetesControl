@@ -8,49 +8,37 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Renato Rosseti on 27/04/17.
- */
-
 public class MealPresenter extends Presenter<MealView> implements OnCapturePerformed {
-
-
-    private DaoManager mealDaoHelper;
 
     private int mealDetailsStep = 0;
 
     private File file;
 
-    private Context mContext;
-
-    public MealPresenter(MealView view) {
-        super(view);
+    public MealPresenter(MealView view, Context context) {
+        super(view,context);
     }
 
-    public void onResume(Context context) {
-        this.mContext = context;
-        mealDaoHelper = DaoManager.getInstance();
-        mealDaoHelper.init(context);
+    @Override
+    protected void onResume() {
     }
 
-    public void onDestroy() {
-        mealDaoHelper.destroy();
+    @Override
+    protected void onDestroy() {
         this.view = null;
     }
 
     public List<Meal> retrieveHistoricMeal(String mealType) {
-        return mealDaoHelper.retrieveMealList(mealType);
+        return mealService.retrieveMealListType(mealType);
     }
 
     public void saveMeal(int preGlycemia, float dosageInsulin) {
-        Meal meal = new Meal(null,preGlycemia,0,dosageInsulin,new Date(), 0, "", file.getName(),"LUNCH");
-
-        mealDaoHelper.addNewMeal(meal);
+        mealService.saveMeal(preGlycemia,dosageInsulin,file.getName());
     }
 
-
-    public void setMealDaoHelper(DaoManager mealDaoHelper) {
-        this.mealDaoHelper = mealDaoHelper;
+    @Override
+    public void loadCapturedFile(File file) {
+        this.file = file;
+        view.showMealCaptured(file);
     }
 
     public void incrementMealDetailsStep() {
@@ -65,9 +53,4 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
         return mealDetailsStep == 2;
     }
 
-    @Override
-    public void loadCapturedFile(File file) {
-        this.file = file;
-        view.showMealCaptured(file);
-    }
 }

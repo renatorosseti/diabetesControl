@@ -1,8 +1,6 @@
 package com.diabetes.instameal.meal;
 
 import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
 
 import com.diabetes.instameal.Helper.DaoManager;
 import com.diabetes.instameal.model.Meal;
@@ -16,7 +14,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import static org.mockito.Mockito.verify;
@@ -71,11 +68,11 @@ public class MealPresenterTest {
         ArrayList<Meal> meals = new ArrayList<>();
         meals.add(new Meal((long) 0, 100, 150, 5.0F, new Date(), 0, "description","idImage",mealType));
 
-        when(mealDaoUtils.retrieveMealList(mealType)).thenReturn(meals);
+        when(mealDaoUtils.retrieveMealListType(mealType)).thenReturn(meals);
 
         mealPresenter.retrieveHistoricMeal(mealType);
 
-        verify(mealDaoUtils).retrieveMealList(mealType);
+        verify(mealDaoUtils).retrieveMealListType(mealType);
     }
 
 

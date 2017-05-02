@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progress);
-        presenter = new MainPresenter(this, new MealServiceImpl());
+        presenter = new MainPresenter(this, this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override protected void onResume() {
         super.onResume();
-        presenter.onResume(this);
+        presenter.onResume();
 
     }
 

@@ -1,14 +1,16 @@
 package com.diabetes.instameal.service;
 
-import com.diabetes.instameal.model.Meal;
-
-import java.util.List;
+import com.diabetes.instameal.Helper.DaoManager;
 
 public interface MealService {
 
-    interface OnFinishedListener {
-        void onFinished(List<Meal> items);
-    }
+    void retrieveAllMeals(OnMealServicePerformed listener);
 
-    void findItems(OnFinishedListener listener);
+    void destroy();
+
+    void setMealDaoHelper(DaoManager daoManager);
+
+    void saveMeal(int preGlycemia, float dosageInsulin, String imageName);
+
+    void retrieveHistoricMeal(OnMealServicePerformed listener, String mealType);
 }
