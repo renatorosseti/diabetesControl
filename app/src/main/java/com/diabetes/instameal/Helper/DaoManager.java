@@ -36,6 +36,10 @@ public class DaoManager {
         return daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(mealType)).orderDesc(MealDao.Properties.PosGlycemia).list();
     }
 
+    public synchronized List<Meal> retrieveAllMeals() {
+        return daoSession.getMealDao().queryBuilder().orderAsc(MealDao.Properties.Date).list();
+    }
+
     public void addNewMeal(Meal meal) {
         daoSession.getMealDao().insert(meal);
     }

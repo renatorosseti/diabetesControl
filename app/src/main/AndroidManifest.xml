@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.diabetes.instameal.main.MainActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.meal.MealActivity;
 import com.diabetes.instameal.model.Meal;
+import com.diabetes.instameal.service.MealServiceImpl;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemClickListener {
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progress);
-        presenter = new MainPresenterImpl(this, new FindItemsInteractorImpl());
+        presenter = new MainPresenter(this, new MealServiceImpl());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override protected void onResume() {
         super.onResume();
-        presenter.onResume();
+        presenter.onResume(this);
+
     }
 
     @Override
@@ -93,6 +96,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     }
 
     @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        presenter.onItemClicked(position);
+
     }
 }

@@ -1,10 +1,10 @@
-package com.diabetes.instameal.main;
+package com.diabetes.instameal.service;
 
 import com.diabetes.instameal.model.Meal;
 
 import java.util.List;
 
-public interface FindItemsInteractor {
+public interface MealService {
 
     interface OnFinishedListener {
         void onFinished(List<Meal> items);

@@ -3,23 +3,16 @@ package com.diabetes.instameal.meal;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.diabetes.instameal.Helper.CapturedHelper;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.model.Meal;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class MealPagerAdapter extends PagerAdapter {
@@ -58,11 +51,8 @@ public class MealPagerAdapter extends PagerAdapter {
         options.inJustDecodeBounds = false;
         options.inTempStorage = new byte[128];
 
-        Bitmap b = BitmapFactory.decodeFile(getFile(meals.get(position).getIdImage()),options);
-        holder.mealPhoto.setImageBitmap(b);
-
-
-//        holder.mealPhoto.setImageDrawable(mContext.getDrawable(android.R.drawable.alert_dark_frame));
+        Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meals.get(position).getIdImage()),options);
+        holder.mealPhoto.setImageBitmap(bitmap);
         collection.addView(convertView);
         return convertView;
     }
@@ -80,14 +70,6 @@ public class MealPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == ((LinearLayout) object);
-    }
-
-    public String getFile(String imageName) {
-        String path = Environment.getExternalStorageDirectory().toString()+"/Android/data/"+mContext.getPackageName()+"/files/"+imageName;
-        Log.d("Files", "Path: " + path);
-//        File file = new File(path);
-        return path;
-
     }
 
     class ViewHolder {
