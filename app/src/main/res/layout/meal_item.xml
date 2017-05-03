@@ -7,58 +7,66 @@
     cardview:cardCornerRadius="2dp"
     cardview:cardElevation="3dp"
     cardview:cardUseCompatPadding="true">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/mealView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:alwaysDrawnWithCache="true"
+            android:scaleType="centerCrop" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/mealType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Janta" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/mealType"
+                    style="@style/TagFont.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Janta" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/preGlycemiaText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/before" />
+                <TextView
+                    style="@style/TagFont.Bold"
+                    android:id="@+id/preGlycemiaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/before" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/posGlycemiaText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/after" />
+                <TextView
+                    style="@style/TagFont.Bold"
+                    android:id="@+id/posGlycemiaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/after" />
 
-        </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/mealView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:alwaysDrawnWithCache="true"
-        android:scaleType="centerCrop" />
+
 </android.support.v7.widget.CardView>
