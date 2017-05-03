@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -20,9 +22,9 @@ import com.diabetes.instameal.service.MealServiceImpl;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements MainView {
 
-    private ListView listView;
+    private RecyclerView mRecyclerView;
 
     private ProgressBar progressBar;
 
@@ -32,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView = (ListView) findViewById(R.id.list);
-        listView.setOnItemClickListener(this);
+        mRecyclerView = (RecyclerView) findViewById(R.id.listRecycler);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = (ProgressBar) findViewById(R.id.progress);
         presenter = new MainPresenter(this, this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,23 +81,19 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        listView.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override public void hideProgress() {
         progressBar.setVisibility(View.INVISIBLE);
-        listView.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override public void setItems(List<Meal> items) {
-        listView.setAdapter(new MainAdapter(this, android.R.layout.simple_list_item_1, items));
+        mRecyclerView.setAdapter(new MainAdapter(this, items));
     }
 
     @Override public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }

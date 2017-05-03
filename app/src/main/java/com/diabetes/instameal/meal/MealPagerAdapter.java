@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +49,6 @@ public class MealPagerAdapter extends PagerAdapter {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
-        options.inJustDecodeBounds = false;
-        options.inTempStorage = new byte[128];
 
         Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meals.get(position).getIdImage()),options);
         holder.mealPhoto.setImageBitmap(bitmap);
@@ -59,7 +58,7 @@ public class MealPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        container.removeView((CardView) object);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class MealPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ((CardView) object);
     }
 
     class ViewHolder {

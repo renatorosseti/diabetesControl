@@ -42,8 +42,8 @@ public class MealPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mealPresenter = new MealPresenter(view);
-        mealPresenter.setMealDaoHelper(mealDaoUtils);
+        mealPresenter = new MealPresenter(view, context);
+
     }
 
     @After
@@ -56,9 +56,8 @@ public class MealPresenterTest {
         mockStatic(DaoManager.class);
         PowerMockito.when(DaoManager.getInstance()).thenReturn(mealDaoUtils);
 
-        mealPresenter.onResume(context);
+        mealPresenter.onResume();
 
-        verify(mealDaoUtils).init(context);
     }
 
     @Test

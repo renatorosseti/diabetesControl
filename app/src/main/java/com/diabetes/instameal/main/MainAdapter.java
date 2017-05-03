@@ -3,7 +3,12 @@ package com.diabetes.instameal.main;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Handler;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,63 +21,59 @@ import com.diabetes.instameal.R;
 import com.diabetes.instameal.model.Meal;
 import com.squareup.picasso.Picasso;
 
+import java.net.URI;
 import java.util.List;
 
-public class MainAdapter extends ArrayAdapter<Meal> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
 
     private Context mContext;
 
     private List<Meal> meals;
 
-    private LayoutInflater inflater;
-
-    public MainAdapter(Context context, int resource, List<Meal> meals) {
-        super(context, resource, meals);
+    public MainAdapter(Context context, List<Meal> meals) {
         this.mContext = context;
-        this.inflater = LayoutInflater.from(context);
         this.meals = meals;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
-        Meal meal = meals.get(position);
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.meal_item, null, false);
-            holder = new ViewHolder();
-            holder.mealPhoto = (ImageView) convertView.findViewById(R.id.mealView);
-            holder.preGlycemiaText = (TextView) convertView.findViewById(R.id.preGlycemiaText);
-            holder.posGlycemiaText = (TextView) convertView.findViewById(R.id.posGlycemiaText);
-            holder.mealType = (TextView) convertView.findViewById(R.id.mealType);
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item, null);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
+    }
 
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Meal meal = meals.get(position);
         holder.preGlycemiaText.setText(meal.getPreGlycemia().toString());
         holder.posGlycemiaText.setText(meal.getPosGlycemia().toString());
         holder.mealType.setText(meal.getType());
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 4;
+        options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meal.getIdImage()),options);
         holder.mealPhoto.setImageBitmap(bitmap);
-
-//        Picasso.with(mContext).load(CapturedHelper.getPath(mContext, meal.getIdImage())).into(holder.mealPhoto);
-
-        return convertView;
+//        holder.mealPhoto.setImageURI(Uri.fromFile(CapturedHelper.getFile(mContext,meal.getIdImage())));
+//        Picasso.with(mContext).load(CapturedHelper.getPath(mContext,meal.getIdImage())).placeholder(R.mipmap.ic_launcher).into(holder.mealPhoto);
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return meals.size();
     }
 
-    class ViewHolder {
-        ImageView mealPhoto;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        AppCompatImageView mealPhoto;
         TextView preGlycemiaText;
         TextView posGlycemiaText;
         TextView mealType;
+        public ViewHolder(View v) {
+            super(v);
+            this.mealPhoto = (AppCompatImageView) v.findViewById(R.id.mealView);
+            this.preGlycemiaText = (TextView) v.findViewById(R.id.preGlycemiaText);
+            this.posGlycemiaText = (TextView) v.findViewById(R.id.posGlycemiaText);
+            this.mealType = (TextView) v.findViewById(R.id.mealType);
+        }
     }
 
 
