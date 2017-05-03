@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
 import com.diabetes.instameal.R;
+import com.diabetes.instameal.model.Meal;
 import com.squareup.picasso.Picasso;
-
 import java.io.File;
 import java.util.List;
 import butterknife.BindView;
@@ -49,7 +49,7 @@ public class MealActivity extends AppCompatActivity implements MealView {
         bindView();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        presenter = new MealPresenter(this);
+        presenter = new MealPresenter(this,this);
         if (null == savedInstanceState) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.content_capture, CameraFragment.newInstance())
@@ -69,7 +69,7 @@ public class MealActivity extends AppCompatActivity implements MealView {
 
     @Override protected void onResume() {
         super.onResume();
-        presenter.onResume(this);
+        presenter.onResume();
     }
 
     @Override
@@ -95,8 +95,7 @@ public class MealActivity extends AppCompatActivity implements MealView {
             finish();
         } else if (presenter.areMealDetailsCompleted()) {
             viewFlipperMeal.showNext();
-            MealPagerAdapter adapter = new MealPagerAdapter(this, presenter.retrieveHistoricMeal("LUNCH"));
-            viewPager.setAdapter(adapter);
+            presenter.retrieveHistoricMeal("LUNCH");
             Log.i("MealActivity","Is shown: "+viewPager.isShown());
 
         } else {
@@ -124,22 +123,18 @@ public class MealActivity extends AppCompatActivity implements MealView {
 //        viewPager.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void setItems(List<String> items) {
-
-    }
-
-
-    @Override
-    public void showDialog(String message) {
-
-    }
 
     public void showMealCaptured(File file) {
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
         Log.i("Path: ",file.getPath());
         Log.i("Name: ",file.getName());
+    }
+
+    @Override
+    public void showMealItems(List<Meal> meals) {
+        MealPagerAdapter adapter = new MealPagerAdapter(this, meals);
+        viewPager.setAdapter(adapter);
     }
 
     public MealPresenter getPresenter() {

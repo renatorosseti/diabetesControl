@@ -1,14 +1,13 @@
 package com.diabetes.instameal.meal;
 
 import android.content.Context;
-import com.diabetes.instameal.Helper.DaoManager;
 import com.diabetes.instameal.core.presenter.Presenter;
 import com.diabetes.instameal.model.Meal;
+import com.diabetes.instameal.service.OnMealServicePerformed;
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
-public class MealPresenter extends Presenter<MealView> implements OnCapturePerformed {
+public class MealPresenter extends Presenter<MealView> implements OnCapturePerformed, OnMealServicePerformed {
 
     private int mealDetailsStep = 0;
 
@@ -27,8 +26,8 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
         this.view = null;
     }
 
-    public List<Meal> retrieveHistoricMeal(String mealType) {
-        return mealService.retrieveMealListType(mealType);
+    public void retrieveHistoricMeal(String mealType) {
+        mealService.retrieveHistoricMeal(this,mealType);
     }
 
     public void saveMeal(int preGlycemia, float dosageInsulin) {
@@ -53,4 +52,8 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
         return mealDetailsStep == 2;
     }
 
+    @Override
+    public void loadMeals(List<Meal> items) {
+        view.showMealItems(items);
+    }
 }

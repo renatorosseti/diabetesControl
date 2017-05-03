@@ -30,7 +30,7 @@ public class MainPresenter extends Presenter<MainView> implements OnMealServiceP
     @Override
     protected void onDestroy() {
         mealService.destroy();
-        this.view = null;
+        view = null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.diabetes.instameal.meal;
 
 import com.diabetes.instameal.core.view.View;
+import com.diabetes.instameal.model.Meal;
 
 import java.io.File;
 import java.util.List;
@@ -11,9 +12,7 @@ public interface MealView extends View {
 
     void hideProgress();
 
-    void setItems(List<String> items);
-
-    void showDialog(String message);
-
     void showMealCaptured(File file);
+
+    void showMealItems(List<Meal> meals);
 }
