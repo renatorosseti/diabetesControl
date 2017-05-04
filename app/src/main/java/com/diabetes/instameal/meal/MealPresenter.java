@@ -1,6 +1,5 @@
 package com.diabetes.instameal.meal;
 
-import android.content.Context;
 import com.diabetes.instameal.core.presenter.Presenter;
 import com.diabetes.instameal.model.Meal;
 import com.diabetes.instameal.service.OnMealServicePerformed;
@@ -13,8 +12,8 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
 
     private File file;
 
-    public MealPresenter(MealView view, Context context) {
-        super(view,context);
+    public MealPresenter(MealView view) {
+        super(view);
     }
 
     @Override
@@ -45,11 +44,11 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
     }
 
     public Boolean areMealDetailsCompleted() {
-        return mealDetailsStep == 1;
+        return mealDetailsStep == 0;
     }
 
     public Boolean isMealProcessFinished() {
-        return mealDetailsStep == 2;
+        return mealDetailsStep == 1;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.diabetes.instameal.service;
 
-import com.diabetes.instameal.Helper.DaoManager;
+import com.diabetes.instameal.model.DaoManager;
 
 public interface MealService {
 

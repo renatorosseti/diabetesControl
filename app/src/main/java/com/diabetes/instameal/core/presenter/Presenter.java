@@ -1,8 +1,5 @@
 package com.diabetes.instameal.core.presenter;
 
-
-import android.content.Context;
-
 import com.diabetes.instameal.core.view.View;
 import com.diabetes.instameal.service.MealService;
 import com.diabetes.instameal.service.MealServiceImpl;
@@ -13,9 +10,9 @@ public abstract class Presenter<V extends View> {
 
     protected MealService mealService;
 
-    public Presenter(V view, Context context){
+    public Presenter(V view){
         this.view = view;
-        this.mealService = new MealServiceImpl(context);
+        this.mealService = new MealServiceImpl();
     }
 
     protected abstract void onDestroy();

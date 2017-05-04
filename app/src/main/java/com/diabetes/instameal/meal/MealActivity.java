@@ -2,24 +2,27 @@ package com.diabetes.instameal.meal;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import com.diabetes.instameal.R;
+import com.diabetes.instameal.core.ui.MealApplication;
 import com.diabetes.instameal.model.Meal;
 import com.squareup.picasso.Picasso;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import java.io.File;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MealActivity extends AppCompatActivity implements MealView {
+public class MealActivity extends MealApplication implements MealView, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.mealViewPager)
     ViewPager viewPager;
@@ -31,14 +34,16 @@ public class MealActivity extends AppCompatActivity implements MealView {
     ViewFlipper viewFlipperMeal;
 
     @BindView(R.id.imageViewCaptured)
-    ImageView imageCaptured;
+    AppCompatImageView imageCaptured;
 
-    @BindView(R.id.listViewPreGlycemia)
-    ListView listViewPreGlycemia;
+    @BindView(R.id.spinnerMealType)
+    MaterialBetterSpinner spinnerMealType;
 
-    @BindView(R.id.listViewInsulinDosage)
-    ListView listViewInsulinDosage;
+    @BindView(R.id.spinnerGlycemia)
+    MaterialBetterSpinner spinnerGlycemia;
 
+    @BindView(R.id.spinnerDosage)
+    MaterialBetterSpinner spinnerDosage;
 
     private MealPresenter presenter;
 
@@ -49,13 +54,36 @@ public class MealActivity extends AppCompatActivity implements MealView {
         bindView();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        presenter = new MealPresenter(this,this);
+        presenter = new MealPresenter(this);
         if (null == savedInstanceState) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.content_capture, CameraFragment.newInstance())
                     .commit();
         }
         showNextMealDetails();
+        setUpSpinners();
+    }
+
+    private void setUpSpinners() {
+        spinnerMealType.setOnItemSelectedListener(this);
+        spinnerGlycemia.setOnItemSelectedListener(this);
+        spinnerDosage.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> dosageAdapter = ArrayAdapter.createFromResource(this,
+                R.array.dosage_insulin_array, android.R.layout.simple_spinner_item);
+        dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDosage.setAdapter(dosageAdapter);
+
+        ArrayAdapter<CharSequence> glycemiaAdapter = ArrayAdapter.createFromResource(this,
+                R.array.glycemia_array, android.R.layout.simple_spinner_item);
+        glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGlycemia.setAdapter(glycemiaAdapter);
+
+        ArrayAdapter<CharSequence> mealTypeAdapter = ArrayAdapter.createFromResource(this,
+                R.array.meal_type_array, android.R.layout.simple_spinner_item);
+        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMealType.setAdapter(mealTypeAdapter);
+
     }
 
     private void bindView() {
@@ -99,13 +127,14 @@ public class MealActivity extends AppCompatActivity implements MealView {
             Log.i("MealActivity","Is shown: "+viewPager.isShown());
 
         } else {
-            String[] exercises = getResources().getStringArray(R.array.glycemias_array);
-            ArrayAdapter<String> glycemiasAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,exercises);
-            listViewPreGlycemia.setAdapter(glycemiasAdapter);
-
-            String[] exercises2 = getResources().getStringArray(R.array.dosage_insulin_array);
-            ArrayAdapter<String> adapterInsulinDosage=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,exercises2);
-            listViewInsulinDosage.setAdapter(adapterInsulinDosage);
+//            viewFlipperMeal.showNext();
+//            String[] exercises = getResources().getStringArray(R.array.glycemias_array);
+//            ArrayAdapter<String> glycemiasAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,exercises);
+//            listViewPreGlycemia.setAdapter(glycemiasAdapter);
+//
+//            String[] exercises2 = getResources().getStringArray(R.array.dosage_insulin_array);
+//            ArrayAdapter<String> adapterInsulinDosage=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,exercises2);
+//            listViewInsulinDosage.setAdapter(adapterInsulinDosage);
         }
         presenter.incrementMealDetailsStep();
     }
@@ -139,5 +168,30 @@ public class MealActivity extends AppCompatActivity implements MealView {
 
     public MealPresenter getPresenter() {
         return presenter;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("MealActivity", "view "+ view.getId());
+        Log.d("MealActivity", "position "+ position);
+        Log.d("MealActivity", "id "+ id);
+        switch (view.getId()) {
+            case R.id.spinnerMealType:
+                Toast.makeText(this,"Position: " + position,Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.spinnerGlycemia:
+                Toast.makeText(this,"Position: " + position,Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.spinnerDosage:
+                Toast.makeText(this,"Position: " + position,Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

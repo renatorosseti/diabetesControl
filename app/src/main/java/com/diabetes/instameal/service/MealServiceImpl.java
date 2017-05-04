@@ -1,8 +1,7 @@
 package com.diabetes.instameal.service;
 
-import android.content.Context;
 import android.os.Handler;
-import com.diabetes.instameal.Helper.DaoManager;
+import com.diabetes.instameal.model.DaoManager;
 import com.diabetes.instameal.model.Meal;
 import java.util.Date;
 
@@ -10,9 +9,9 @@ public class MealServiceImpl implements MealService {
 
     private DaoManager mDaoManager;
 
-    public MealServiceImpl(Context context) {
+    public MealServiceImpl() {
         this.mDaoManager = DaoManager.getInstance();
-        this.mDaoManager.init(context);
+        this.mDaoManager.init();
     }
 
     @Override
@@ -47,4 +46,5 @@ public class MealServiceImpl implements MealService {
     public void setMealDaoHelper(DaoManager daoManager) {
         this.mDaoManager = daoManager;
     }
+
 }

@@ -1,21 +1,12 @@
-package com.diabetes.instameal.Helper;
+package com.diabetes.instameal.model;
 
-import android.content.Context;
-import com.diabetes.instameal.model.DaoMaster;
-import com.diabetes.instameal.model.DaoSession;
-import com.diabetes.instameal.model.Meal;
-import com.diabetes.instameal.model.MealDao;
+import com.diabetes.instameal.core.ui.MealApplication;
+
 import java.util.List;
-
-/**
- * Created by Renato Rosseti on 27/04/17.
- */
 
 public class DaoManager {
 
     private DaoSession daoSession;
-
-    private DaoMaster daoMaster;
 
     private static DaoManager instance;
 
@@ -26,8 +17,8 @@ public class DaoManager {
         return instance;
     }
 
-    public void init(Context context) {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "meal-db", null);
+    public void init() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(MealApplication.getContext(), "meal-db", null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         daoSession = daoMaster.newSession();
     }

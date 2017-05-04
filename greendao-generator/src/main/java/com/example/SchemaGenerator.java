@@ -15,7 +15,7 @@ public class SchemaGenerator {
         meal.addDateProperty("date");
         meal.addIntProperty("preExerciseLevel");
         meal.addStringProperty("description");
-        meal.addStringProperty("idImage");
+        meal.addStringProperty("pathImage");
         meal.addStringProperty("type");
         DaoGenerator daoGenerator = new DaoGenerator();
         daoGenerator.generateAll(schema, "./app/src/main/java/");

@@ -2,7 +2,7 @@ package com.diabetes.instameal.meal;
 
 import android.content.Context;
 
-import com.diabetes.instameal.Helper.DaoManager;
+import com.diabetes.instameal.model.DaoManager;
 import com.diabetes.instameal.model.Meal;
 import org.junit.After;
 import org.junit.Before;

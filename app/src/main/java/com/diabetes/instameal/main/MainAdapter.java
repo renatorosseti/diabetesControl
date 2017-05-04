@@ -3,25 +3,15 @@ package com.diabetes.instameal.main;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.diabetes.instameal.Helper.CapturedHelper;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.model.Meal;
-import com.squareup.picasso.Picasso;
-
-import java.net.URI;
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
@@ -51,7 +41,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.mealType.setText(meal.getType());
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
-        Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meal.getIdImage()),options);
+        Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meal.getPathImage()),options);
         holder.mealPhoto.setImageBitmap(bitmap);
 //        holder.mealPhoto.setImageURI(Uri.fromFile(CapturedHelper.getFile(mContext,meal.getIdImage())));
 //        Picasso.with(mContext).load(CapturedHelper.getPath(mContext,meal.getIdImage())).placeholder(R.mipmap.ic_launcher).into(holder.mealPhoto);

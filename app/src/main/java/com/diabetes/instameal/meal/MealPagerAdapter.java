@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.diabetes.instameal.Helper.CapturedHelper;
 import com.diabetes.instameal.R;
@@ -39,6 +38,7 @@ public class MealPagerAdapter extends PagerAdapter {
         holder.mealPhoto = (ImageView) convertView.findViewById(R.id.mealView);
         holder.preGlycemiaText = (TextView) convertView.findViewById(R.id.preGlycemiaText);
         holder.posGlycemiaText = (TextView) convertView.findViewById(R.id.posGlycemiaText);
+        holder.dosageText = (TextView) convertView.findViewById(R.id.dosageText);
         holder.mealType = (TextView) convertView.findViewById(R.id.mealType);
 
 
@@ -50,7 +50,7 @@ public class MealPagerAdapter extends PagerAdapter {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meals.get(position).getIdImage()),options);
+        Bitmap bitmap = BitmapFactory.decodeFile(CapturedHelper.getPath(mContext, meals.get(position).getPathImage()),options);
         holder.mealPhoto.setImageBitmap(bitmap);
         collection.addView(convertView);
         return convertView;
@@ -75,6 +75,7 @@ public class MealPagerAdapter extends PagerAdapter {
         ImageView mealPhoto;
         TextView preGlycemiaText;
         TextView posGlycemiaText;
+        TextView dosageText;
         TextView mealType;
     }
 }

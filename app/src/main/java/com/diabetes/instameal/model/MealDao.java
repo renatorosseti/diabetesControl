@@ -30,7 +30,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
         public final static Property Date = new Property(4, java.util.Date.class, "date", false, "DATE");
         public final static Property PreExerciseLevel = new Property(5, Integer.class, "preExerciseLevel", false, "PRE_EXERCISE_LEVEL");
         public final static Property Description = new Property(6, String.class, "description", false, "DESCRIPTION");
-        public final static Property IdImage = new Property(7, String.class, "idImage", false, "ID_IMAGE");
+        public final static Property PathImage = new Property(7, String.class, "pathImage", false, "PATH_IMAGE");
         public final static Property Type = new Property(8, String.class, "type", false, "TYPE");
     };
 
@@ -54,7 +54,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
                 "\"DATE\" INTEGER," + // 4: date
                 "\"PRE_EXERCISE_LEVEL\" INTEGER," + // 5: preExerciseLevel
                 "\"DESCRIPTION\" TEXT," + // 6: description
-                "\"ID_IMAGE\" TEXT," + // 7: idImage
+                "\"PATH_IMAGE\" TEXT," + // 7: pathImage
                 "\"TYPE\" TEXT);"); // 8: type
     }
 
@@ -104,9 +104,9 @@ public class MealDao extends AbstractDao<Meal, Long> {
             stmt.bindString(7, description);
         }
  
-        String idImage = entity.getIdImage();
-        if (idImage != null) {
-            stmt.bindString(8, idImage);
+        String pathImage = entity.getPathImage();
+        if (pathImage != null) {
+            stmt.bindString(8, pathImage);
         }
  
         String type = entity.getType();
@@ -132,7 +132,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
             cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // date
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // preExerciseLevel
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // description
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // idImage
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // pathImage
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // type
         );
         return entity;
@@ -148,7 +148,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
         entity.setDate(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
         entity.setPreExerciseLevel(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setDescription(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setIdImage(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setPathImage(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setType(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     

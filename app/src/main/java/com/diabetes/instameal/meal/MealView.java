@@ -2,7 +2,6 @@ package com.diabetes.instameal.meal;
 
 import com.diabetes.instameal.core.view.View;
 import com.diabetes.instameal.model.Meal;
-
 import java.io.File;
 import java.util.List;
 

@@ -2,24 +2,26 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="5dp"
-    cardview:cardCornerRadius="2dp"
-    cardview:cardElevation="3dp"
+    android:layout_height="wrap_content"
+    cardview:cardCornerRadius="6dp"
+    cardview:cardElevation="1dp"
     cardview:cardUseCompatPadding="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/mealView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:alwaysDrawnWithCache="true"
             android:scaleType="centerCrop" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="32dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -27,13 +29,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
+                <!--<TextView-->
+                    <!--style="@style/InfoFont"-->
+                    <!--android:text="@string/meal" />-->
+
                 <TextView
                     android:id="@+id/mealType"
-                    style="@style/TagFont.Bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Janta" />
+                    style="@style/TagFont"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -42,13 +44,12 @@
                 android:layout_weight="1">
 
                 <TextView
-                    style="@style/TagFont.Bold"
-                    android:id="@+id/preGlycemiaText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/InfoFont"
                     android:text="@string/before" />
 
+                <TextView
+                    android:id="@+id/preGlycemiaText"
+                    style="@style/TagFont" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -57,13 +58,26 @@
                 android:layout_weight="1">
 
                 <TextView
-                    style="@style/TagFont.Bold"
-                    android:id="@+id/posGlycemiaText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/InfoFont"
                     android:text="@string/after" />
 
+                <TextView
+                    android:id="@+id/posGlycemiaText"
+                    style="@style/TagFont" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/InfoFont"
+                    android:text="@string/dosage" />
+
+                <TextView
+                    android:id="@+id/dosageText"
+                    style="@style/TagFont" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

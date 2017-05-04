@@ -13,7 +13,7 @@ public class Meal {
     private java.util.Date date;
     private Integer preExerciseLevel;
     private String description;
-    private String idImage;
+    private String pathImage;
     private String type;
 
     public Meal() {
@@ -23,7 +23,7 @@ public class Meal {
         this.id = id;
     }
 
-    public Meal(Long id, Integer preGlycemia, Integer posGlycemia, Float unitInsulin, java.util.Date date, Integer preExerciseLevel, String description, String idImage, String type) {
+    public Meal(Long id, Integer preGlycemia, Integer posGlycemia, Float unitInsulin, java.util.Date date, Integer preExerciseLevel, String description, String pathImage, String type) {
         this.id = id;
         this.preGlycemia = preGlycemia;
         this.posGlycemia = posGlycemia;
@@ -31,7 +31,7 @@ public class Meal {
         this.date = date;
         this.preExerciseLevel = preExerciseLevel;
         this.description = description;
-        this.idImage = idImage;
+        this.pathImage = pathImage;
         this.type = type;
     }
 
@@ -91,12 +91,12 @@ public class Meal {
         this.description = description;
     }
 
-    public String getIdImage() {
-        return idImage;
+    public String getPathImage() {
+        return pathImage;
     }
 
-    public void setIdImage(String idImage) {
-        this.idImage = idImage;
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 
     public String getType() {

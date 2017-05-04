@@ -1,24 +1,14 @@
 package com.diabetes.instameal.main;
 
-import android.content.Context;
-
-import com.diabetes.instameal.Helper.DaoManager;
 import com.diabetes.instameal.core.presenter.Presenter;
 import com.diabetes.instameal.model.Meal;
-import com.diabetes.instameal.service.MealService;
-import com.diabetes.instameal.service.MealServiceImpl;
 import com.diabetes.instameal.service.OnMealServicePerformed;
-
 import java.util.List;
-
-/**
- * Created by Renato Rosseti on 27/04/17.
- */
 
 public class MainPresenter extends Presenter<MainView> implements OnMealServicePerformed {
 
-    public MainPresenter(MainView view, Context context) {
-        super(view, context);
+    public MainPresenter(MainView view) {
+        super(view);
     }
 
     @Override
