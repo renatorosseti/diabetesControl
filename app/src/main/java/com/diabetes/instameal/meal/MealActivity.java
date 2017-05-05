@@ -30,9 +30,6 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
     @BindView(R.id.viewFlipper)
     ViewFlipper viewFlipper;
 
-    @BindView(R.id.flipperMeal)
-    ViewFlipper viewFlipperMeal;
-
     @BindView(R.id.imageViewCaptured)
     AppCompatImageView imageCaptured;
 
@@ -60,16 +57,17 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
                     .replace(R.id.content_capture, CameraFragment.newInstance())
                     .commit();
         }
-        showNextMealDetails();
         setUpSpinners();
+        presenter.retrieveHistoricMeal("LUNCH");
+        Log.d("MealActivity", "onCreate");
     }
 
     private void setUpSpinners() {
         spinnerMealType.setOnItemSelectedListener(this);
         spinnerGlycemia.setOnItemSelectedListener(this);
-        spinnerDosage.setOnItemSelectedListener(this);
 
-        ArrayAdapter<CharSequence> dosageAdapter = ArrayAdapter.createFromResource(this,
+
+        final ArrayAdapter<CharSequence> dosageAdapter = ArrayAdapter.createFromResource(this,
                 R.array.dosage_insulin_array, android.R.layout.simple_spinner_item);
         dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDosage.setAdapter(dosageAdapter);
@@ -83,6 +81,35 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
                 R.array.meal_type_array, android.R.layout.simple_spinner_item);
         mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMealType.setAdapter(mealTypeAdapter);
+
+        spinnerDosage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "Selected "+dosageAdapter.getItem(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//                setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view,
+//                                       int position, long id) {
+//                Object item = adapterView.getItemAtPosition(position);
+//                if (item != null) {
+//                    Toast.makeText(getContext(), item.toString(),
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//                Toast.makeText(getContext(), "Selected",
+//                        Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                // TODO Auto-generated method stub
+//
+//            }
+//        });
 
     }
 
@@ -118,25 +145,10 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
     }
 
     private void showNextMealDetails() {
-        if (presenter.isMealProcessFinished()) {
-            presenter.saveMeal(100,5F);
-            finish();
-        } else if (presenter.areMealDetailsCompleted()) {
-            viewFlipperMeal.showNext();
-            presenter.retrieveHistoricMeal("LUNCH");
-            Log.i("MealActivity","Is shown: "+viewPager.isShown());
+        presenter.saveMeal(100,5F);
+        finish();
+        Log.i("MealActivity","Is shown: "+viewPager.isShown());
 
-        } else {
-//            viewFlipperMeal.showNext();
-//            String[] exercises = getResources().getStringArray(R.array.glycemias_array);
-//            ArrayAdapter<String> glycemiasAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,exercises);
-//            listViewPreGlycemia.setAdapter(glycemiasAdapter);
-//
-//            String[] exercises2 = getResources().getStringArray(R.array.dosage_insulin_array);
-//            ArrayAdapter<String> adapterInsulinDosage=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,exercises2);
-//            listViewInsulinDosage.setAdapter(adapterInsulinDosage);
-        }
-        presenter.incrementMealDetailsStep();
     }
 
     @Override protected void onDestroy() {
