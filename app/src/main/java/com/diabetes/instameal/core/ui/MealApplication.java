@@ -2,6 +2,7 @@ package com.diabetes.instameal.core.ui;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 
 public abstract class MealApplication extends AppCompatActivity {
 
@@ -16,4 +17,5 @@ public abstract class MealApplication extends AppCompatActivity {
     public static Context getContext() {
        return mContext;
     }
+
 }

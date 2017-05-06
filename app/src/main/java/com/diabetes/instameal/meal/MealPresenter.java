@@ -1,5 +1,6 @@
 package com.diabetes.instameal.meal;
 
+import com.diabetes.instameal.Helper.CapturedHelper;
 import com.diabetes.instameal.core.presenter.Presenter;
 import com.diabetes.instameal.model.Meal;
 import com.diabetes.instameal.service.OnMealServicePerformed;
@@ -30,7 +31,7 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
     }
 
     public void saveMeal(int preGlycemia, float dosageInsulin) {
-        mealService.saveMeal(preGlycemia,dosageInsulin,file.getName());
+        mealService.saveMeal(preGlycemia,dosageInsulin, CapturedHelper.getPath(file.getName()));
     }
 
     @Override

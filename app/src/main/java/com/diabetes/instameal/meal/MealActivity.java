@@ -1,8 +1,9 @@
 package com.diabetes.instameal.meal;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.core.ui.MealApplication;
+import com.diabetes.instameal.main.MainAdapter;
 import com.diabetes.instameal.model.Meal;
 import com.squareup.picasso.Picasso;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -24,8 +26,8 @@ import butterknife.ButterKnife;
 
 public class MealActivity extends MealApplication implements MealView, AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.mealViewPager)
-    ViewPager viewPager;
+    @BindView(R.id.mealListHorizontal)
+    RecyclerView recordedMealList;
 
     @BindView(R.id.viewFlipper)
     ViewFlipper viewFlipper;
@@ -49,6 +51,7 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
         bindView();
+        recordedMealList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         presenter = new MealPresenter(this);
@@ -88,29 +91,6 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
                 Toast.makeText(getContext(), "Selected "+dosageAdapter.getItem(position), Toast.LENGTH_SHORT).show();
             }
         });
-
-//                setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view,
-//                                       int position, long id) {
-//                Object item = adapterView.getItemAtPosition(position);
-//                if (item != null) {
-//                    Toast.makeText(getContext(), item.toString(),
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//                Toast.makeText(getContext(), "Selected",
-//                        Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//                // TODO Auto-generated method stub
-//
-//            }
-//        });
-
     }
 
     private void bindView() {
@@ -147,7 +127,6 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
     private void showNextMealDetails() {
         presenter.saveMeal(100,5F);
         finish();
-        Log.i("MealActivity","Is shown: "+viewPager.isShown());
 
     }
 
@@ -168,14 +147,15 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
     public void showMealCaptured(File file) {
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
-        Log.i("Path: ",file.getPath());
-        Log.i("Name: ",file.getName());
+        Log.i("Meal: ","Space: "+file.getTotalSpace());
+        Log.i("Meal: ",file.getPath());
+        Log.i("Meal: ",file.getName());
     }
 
     @Override
     public void showMealItems(List<Meal> meals) {
-        MealPagerAdapter adapter = new MealPagerAdapter(this, meals);
-        viewPager.setAdapter(adapter);
+        MainAdapter adapter = new MainAdapter(this,meals,MainAdapter.HORIZONTAL);
+        recordedMealList.setAdapter(adapter);
     }
 
     public MealPresenter getPresenter() {
