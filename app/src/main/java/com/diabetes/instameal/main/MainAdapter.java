@@ -1,21 +1,15 @@
 package com.diabetes.instameal.main;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.diabetes.instameal.Helper.CapturedHelper;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.model.Meal;
 import com.squareup.picasso.Picasso;
@@ -69,19 +63,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.preGlycemiaText.setText(meal.getPreGlycemia().toString());
         holder.posGlycemiaText.setText(meal.getPosGlycemia().toString());
         holder.mealType.setText(meal.getType());
-
-//        holder.mealPhoto.setImageBitmap(bitmap);
-//        new Runnable() {
-//            public void run() {
-//                BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inSampleSize = 2;
-//                Bitmap bitmap = BitmapFactory.decodeFile(meal.getPathImage(),options);
-//            }
-//        };
-
-//        holder.mealPhoto.setImageURI(Uri.fromFile(CapturedHelper.getFile(mContext,meal.getIdImage())));
-        Picasso.with(mContext).load("file://"+meal.getPathImage()).resize(getDisplayParam(HORIZONTAL), getDisplayParam(VERTICAL)/2)
-                .centerCrop().placeholder(R.mipmap.ic_launcher).into(holder.mealPhoto);
+        Picasso.with(mContext)
+                .load("file://" + meal.getPathImage())
+                .resize(getDisplayParam(HORIZONTAL), getDisplayParam(VERTICAL)/2)
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .into(holder.mealPhoto);
     }
 
 

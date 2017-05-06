@@ -16,6 +16,7 @@
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
 
+    <string name="save">Salvar</string>
     <string name="next">Próximo</string>
     <string name="before">Antes: </string>
     <string name="after">Depois: </string>
