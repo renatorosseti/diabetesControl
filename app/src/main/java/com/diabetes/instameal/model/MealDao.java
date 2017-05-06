@@ -24,11 +24,11 @@ public class MealDao extends AbstractDao<Meal, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property PreGlycemia = new Property(1, Integer.class, "preGlycemia", false, "PRE_GLYCEMIA");
-        public final static Property PosGlycemia = new Property(2, Integer.class, "posGlycemia", false, "POS_GLYCEMIA");
-        public final static Property UnitInsulin = new Property(3, Float.class, "unitInsulin", false, "UNIT_INSULIN");
+        public final static Property PreGlycemia = new Property(1, String.class, "preGlycemia", false, "PRE_GLYCEMIA");
+        public final static Property PosGlycemia = new Property(2, String.class, "posGlycemia", false, "POS_GLYCEMIA");
+        public final static Property DosageInsulin = new Property(3, Float.class, "dosageInsulin", false, "DOSAGE_INSULIN");
         public final static Property Date = new Property(4, java.util.Date.class, "date", false, "DATE");
-        public final static Property PreExerciseLevel = new Property(5, Integer.class, "preExerciseLevel", false, "PRE_EXERCISE_LEVEL");
+        public final static Property SportLevel = new Property(5, Integer.class, "sportLevel", false, "SPORT_LEVEL");
         public final static Property Description = new Property(6, String.class, "description", false, "DESCRIPTION");
         public final static Property PathImage = new Property(7, String.class, "pathImage", false, "PATH_IMAGE");
         public final static Property Type = new Property(8, String.class, "type", false, "TYPE");
@@ -48,11 +48,11 @@ public class MealDao extends AbstractDao<Meal, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"MEAL\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"PRE_GLYCEMIA\" INTEGER," + // 1: preGlycemia
-                "\"POS_GLYCEMIA\" INTEGER," + // 2: posGlycemia
-                "\"UNIT_INSULIN\" REAL," + // 3: unitInsulin
+                "\"PRE_GLYCEMIA\" TEXT," + // 1: preGlycemia
+                "\"POS_GLYCEMIA\" TEXT," + // 2: posGlycemia
+                "\"DOSAGE_INSULIN\" REAL," + // 3: dosageInsulin
                 "\"DATE\" INTEGER," + // 4: date
-                "\"PRE_EXERCISE_LEVEL\" INTEGER," + // 5: preExerciseLevel
+                "\"SPORT_LEVEL\" INTEGER," + // 5: sportLevel
                 "\"DESCRIPTION\" TEXT," + // 6: description
                 "\"PATH_IMAGE\" TEXT," + // 7: pathImage
                 "\"TYPE\" TEXT);"); // 8: type
@@ -74,19 +74,19 @@ public class MealDao extends AbstractDao<Meal, Long> {
             stmt.bindLong(1, id);
         }
  
-        Integer preGlycemia = entity.getPreGlycemia();
+        String preGlycemia = entity.getPreGlycemia();
         if (preGlycemia != null) {
-            stmt.bindLong(2, preGlycemia);
+            stmt.bindString(2, preGlycemia);
         }
  
-        Integer posGlycemia = entity.getPosGlycemia();
+        String posGlycemia = entity.getPosGlycemia();
         if (posGlycemia != null) {
-            stmt.bindLong(3, posGlycemia);
+            stmt.bindString(3, posGlycemia);
         }
  
-        Float unitInsulin = entity.getUnitInsulin();
-        if (unitInsulin != null) {
-            stmt.bindDouble(4, unitInsulin);
+        Float dosageInsulin = entity.getDosageInsulin();
+        if (dosageInsulin != null) {
+            stmt.bindDouble(4, dosageInsulin);
         }
  
         java.util.Date date = entity.getDate();
@@ -94,9 +94,9 @@ public class MealDao extends AbstractDao<Meal, Long> {
             stmt.bindLong(5, date.getTime());
         }
  
-        Integer preExerciseLevel = entity.getPreExerciseLevel();
-        if (preExerciseLevel != null) {
-            stmt.bindLong(6, preExerciseLevel);
+        Integer sportLevel = entity.getSportLevel();
+        if (sportLevel != null) {
+            stmt.bindLong(6, sportLevel);
         }
  
         String description = entity.getDescription();
@@ -126,11 +126,11 @@ public class MealDao extends AbstractDao<Meal, Long> {
     public Meal readEntity(Cursor cursor, int offset) {
         Meal entity = new Meal( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // preGlycemia
-            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // posGlycemia
-            cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3), // unitInsulin
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // preGlycemia
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // posGlycemia
+            cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3), // dosageInsulin
             cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // date
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // preExerciseLevel
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // sportLevel
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // description
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // pathImage
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // type
@@ -142,11 +142,11 @@ public class MealDao extends AbstractDao<Meal, Long> {
     @Override
     public void readEntity(Cursor cursor, Meal entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setPreGlycemia(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setPosGlycemia(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
-        entity.setUnitInsulin(cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3));
+        entity.setPreGlycemia(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setPosGlycemia(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDosageInsulin(cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3));
         entity.setDate(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
-        entity.setPreExerciseLevel(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setSportLevel(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setDescription(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setPathImage(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setType(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));

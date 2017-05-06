@@ -9,11 +9,11 @@ public class SchemaGenerator {
         Schema schema = new Schema(1, "com.diabetes.instameal.model");
         Entity meal = schema.addEntity("Meal");
         meal.addIdProperty();
-        meal.addIntProperty("preGlycemia");
-        meal.addIntProperty("posGlycemia");
-        meal.addFloatProperty("unitInsulin");
+        meal.addStringProperty("preGlycemia");
+        meal.addStringProperty("posGlycemia");
+        meal.addFloatProperty("dosageInsulin");
         meal.addDateProperty("date");
-        meal.addIntProperty("preExerciseLevel");
+        meal.addIntProperty("sportLevel");
         meal.addStringProperty("description");
         meal.addStringProperty("pathImage");
         meal.addStringProperty("type");

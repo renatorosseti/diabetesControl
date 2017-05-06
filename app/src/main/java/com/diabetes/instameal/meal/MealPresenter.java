@@ -9,9 +9,15 @@ import java.util.List;
 
 public class MealPresenter extends Presenter<MealView> implements OnCapturePerformed, OnMealServicePerformed {
 
-    private int mealDetailsStep = 0;
+    private File mFile;
 
-    private File file;
+    private String preGlycemia;
+
+    private String posGlycemia;
+
+    private String dosageInsulin;
+
+    private String mealType;
 
     public MealPresenter(MealView view) {
         super(view);
@@ -30,30 +36,40 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
         mealService.retrieveHistoricMeal(this,mealType);
     }
 
-    public void saveMeal(int preGlycemia, float dosageInsulin) {
-        mealService.saveMeal(preGlycemia,dosageInsulin, CapturedHelper.getPath(file.getName()));
+    public void saveMeal() {
+        if(preGlycemia != null && dosageInsulin != null && mealType != null && mFile != null) {
+            mealService.saveMeal(preGlycemia, Float.parseFloat(dosageInsulin), CapturedHelper.getPath(mFile.getName()), mealType);
+            view.closeActivity();
+        } else {
+            view.showErrorMessage();
+        }
+
     }
 
     @Override
     public void loadCapturedFile(File file) {
-        this.file = file;
+        this.mFile = file;
         view.showMealCaptured(file);
-    }
-
-    public void incrementMealDetailsStep() {
-        this.mealDetailsStep++;
-    }
-
-    public Boolean areMealDetailsCompleted() {
-        return mealDetailsStep == 0;
-    }
-
-    public Boolean isMealProcessFinished() {
-        return mealDetailsStep == 1;
     }
 
     @Override
     public void loadMeals(List<Meal> items) {
         view.showMealItems(items);
+    }
+
+    public void setMealType(String mealType) {
+        this.mealType = mealType;
+    }
+
+    public void setDosage(String dosage) {
+        this.dosageInsulin = dosage;
+    }
+
+    public void setPosGlycemia(String posGlycemia) {
+        this.posGlycemia = posGlycemia;
+    }
+
+    public void setPreGlycemia(String preGlycemia) {
+        this.preGlycemia = preGlycemia;
     }
 }

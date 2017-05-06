@@ -7,11 +7,11 @@ package com.diabetes.instameal.model;
 public class Meal {
 
     private Long id;
-    private Integer preGlycemia;
-    private Integer posGlycemia;
-    private Float unitInsulin;
+    private String preGlycemia;
+    private String posGlycemia;
+    private Float dosageInsulin;
     private java.util.Date date;
-    private Integer preExerciseLevel;
+    private Integer sportLevel;
     private String description;
     private String pathImage;
     private String type;
@@ -23,13 +23,13 @@ public class Meal {
         this.id = id;
     }
 
-    public Meal(Long id, Integer preGlycemia, Integer posGlycemia, Float unitInsulin, java.util.Date date, Integer preExerciseLevel, String description, String pathImage, String type) {
+    public Meal(Long id, String preGlycemia, String posGlycemia, Float dosageInsulin, java.util.Date date, Integer sportLevel, String description, String pathImage, String type) {
         this.id = id;
         this.preGlycemia = preGlycemia;
         this.posGlycemia = posGlycemia;
-        this.unitInsulin = unitInsulin;
+        this.dosageInsulin = dosageInsulin;
         this.date = date;
-        this.preExerciseLevel = preExerciseLevel;
+        this.sportLevel = sportLevel;
         this.description = description;
         this.pathImage = pathImage;
         this.type = type;
@@ -43,28 +43,28 @@ public class Meal {
         this.id = id;
     }
 
-    public Integer getPreGlycemia() {
+    public String getPreGlycemia() {
         return preGlycemia;
     }
 
-    public void setPreGlycemia(Integer preGlycemia) {
+    public void setPreGlycemia(String preGlycemia) {
         this.preGlycemia = preGlycemia;
     }
 
-    public Integer getPosGlycemia() {
+    public String getPosGlycemia() {
         return posGlycemia;
     }
 
-    public void setPosGlycemia(Integer posGlycemia) {
+    public void setPosGlycemia(String posGlycemia) {
         this.posGlycemia = posGlycemia;
     }
 
-    public Float getUnitInsulin() {
-        return unitInsulin;
+    public Float getDosageInsulin() {
+        return dosageInsulin;
     }
 
-    public void setUnitInsulin(Float unitInsulin) {
-        this.unitInsulin = unitInsulin;
+    public void setDosageInsulin(Float dosageInsulin) {
+        this.dosageInsulin = dosageInsulin;
     }
 
     public java.util.Date getDate() {
@@ -75,12 +75,12 @@ public class Meal {
         this.date = date;
     }
 
-    public Integer getPreExerciseLevel() {
-        return preExerciseLevel;
+    public Integer getSportLevel() {
+        return sportLevel;
     }
 
-    public void setPreExerciseLevel(Integer preExerciseLevel) {
-        this.preExerciseLevel = preExerciseLevel;
+    public void setSportLevel(Integer sportLevel) {
+        this.sportLevel = sportLevel;
     }
 
     public String getDescription() {

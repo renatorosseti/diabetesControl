@@ -63,6 +63,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.preGlycemiaText.setText(meal.getPreGlycemia().toString());
         holder.posGlycemiaText.setText(meal.getPosGlycemia().toString());
         holder.mealType.setText(meal.getType());
+        holder.dosage.setText(meal.getDosageInsulin().toString());
         Picasso.with(mContext)
                 .load("file://" + meal.getPathImage())
                 .resize(getDisplayParam(HORIZONTAL), getDisplayParam(VERTICAL)/2)
@@ -82,12 +83,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         TextView preGlycemiaText;
         TextView posGlycemiaText;
         TextView mealType;
+        TextView dosage;
         public ViewHolder(View v) {
             super(v);
             this.mealPhoto = (AppCompatImageView) v.findViewById(R.id.mealView);
             this.preGlycemiaText = (TextView) v.findViewById(R.id.preGlycemiaText);
             this.posGlycemiaText = (TextView) v.findViewById(R.id.posGlycemiaText);
             this.mealType = (TextView) v.findViewById(R.id.mealType);
+            this.dosage = (TextView) v.findViewById(R.id.dosageText);
         }
     }
 

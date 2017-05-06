@@ -24,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MealActivity extends MealApplication implements MealView, AdapterView.OnItemSelectedListener {
+public class MealActivity extends MealApplication implements MealView {
 
     @BindView(R.id.mealListHorizontal)
     RecyclerView recordedMealList;
@@ -46,6 +46,12 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
 
     private MealPresenter presenter;
 
+    private ArrayAdapter<CharSequence> dosageAdapter;
+
+    private ArrayAdapter<CharSequence> glycemiaAdapter;
+
+    private ArrayAdapter<CharSequence> mealTypeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,34 +67,40 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
                     .commit();
         }
         setUpSpinners();
-        presenter.retrieveHistoricMeal("LUNCH");
-        Log.d("MealActivity", "onCreate");
     }
 
     private void setUpSpinners() {
-        spinnerMealType.setOnItemSelectedListener(this);
-        spinnerGlycemia.setOnItemSelectedListener(this);
+        dosageAdapter = ArrayAdapter.createFromResource(this, R.array.dosage_insulin_array, android.R.layout.simple_spinner_item);
+        glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, android.R.layout.simple_spinner_item);
+        mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, android.R.layout.simple_spinner_item);
 
-
-        final ArrayAdapter<CharSequence> dosageAdapter = ArrayAdapter.createFromResource(this,
-                R.array.dosage_insulin_array, android.R.layout.simple_spinner_item);
         dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDosage.setAdapter(dosageAdapter);
 
-        ArrayAdapter<CharSequence> glycemiaAdapter = ArrayAdapter.createFromResource(this,
-                R.array.glycemia_array, android.R.layout.simple_spinner_item);
         glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGlycemia.setAdapter(glycemiaAdapter);
 
-        ArrayAdapter<CharSequence> mealTypeAdapter = ArrayAdapter.createFromResource(this,
-                R.array.meal_type_array, android.R.layout.simple_spinner_item);
         mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMealType.setAdapter(mealTypeAdapter);
 
+        spinnerMealType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String mealType = mealTypeAdapter.getItem(position).toString();
+                presenter.setMealType(mealTypeAdapter.getItem(position).toString());
+                presenter.retrieveHistoricMeal(mealType);
+            }
+        });
+        spinnerGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                presenter.setPreGlycemia(glycemiaAdapter.getItem(position).toString());
+            }
+        });
         spinnerDosage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "Selected "+dosageAdapter.getItem(position), Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                presenter.setDosage(dosageAdapter.getItem(position).toString());
             }
         });
     }
@@ -117,17 +129,20 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.confirm_meal:
-                showNextMealDetails();
+                saveMealCaptured();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void showNextMealDetails() {
-        presenter.saveMeal(100,5F);
-        finish();
+    private void saveMealCaptured() {
+        presenter.saveMeal();
+    }
 
+    @Override
+    public void closeActivity() {
+        finish();
     }
 
     @Override protected void onDestroy() {
@@ -135,21 +150,9 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
         super.onDestroy();
     }
 
-    @Override public void showProgress() {
-
-    }
-
-    @Override public void hideProgress() {
-//        viewPager.setVisibility(View.VISIBLE);
-    }
-
-
     public void showMealCaptured(File file) {
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
-        Log.i("Meal: ","Space: "+file.getTotalSpace());
-        Log.i("Meal: ",file.getPath());
-        Log.i("Meal: ",file.getName());
     }
 
     @Override
@@ -158,32 +161,13 @@ public class MealActivity extends MealApplication implements MealView, AdapterVi
         recordedMealList.setAdapter(adapter);
     }
 
+    @Override
+    public void showErrorMessage() {
+        showToastMessage(getString(R.string.select_item_error));
+    }
+
     public MealPresenter getPresenter() {
         return presenter;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("MealActivity", "view "+ view.getId());
-        Log.d("MealActivity", "position "+ position);
-        Log.d("MealActivity", "id "+ id);
-        switch (view.getId()) {
-            case R.id.spinnerMealType:
-                Toast.makeText(this,"Position: " + position,Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.spinnerGlycemia:
-                Toast.makeText(this,"Position: " + position,Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.spinnerDosage:
-                Toast.makeText(this,"Position: " + position,Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

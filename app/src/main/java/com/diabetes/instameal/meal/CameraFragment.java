@@ -361,13 +361,19 @@ public class CameraFragment extends Fragment
     private void showPictureCaptured(final File file) {
         final Activity activity = getActivity();
         if (activity != null) {
-            activity.runOnUiThread(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mListener.loadCapturedFile(file);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.loadCapturedFile(file);
+                        }
+                    });
                     closeCamera();
                 }
-            });
+            }, 300);
+
         }
 
     }

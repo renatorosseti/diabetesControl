@@ -1,7 +1,6 @@
 package com.diabetes.instameal.model;
 
 import com.diabetes.instameal.core.ui.MealApplication;
-
 import java.util.List;
 
 public class DaoManager {
@@ -28,7 +27,7 @@ public class DaoManager {
     }
 
     public synchronized List<Meal> retrieveAllMeals() {
-        return daoSession.getMealDao().queryBuilder().orderAsc(MealDao.Properties.Date).list();
+        return daoSession.getMealDao().queryBuilder().orderDesc(MealDao.Properties.Date).list();
     }
 
     public void addNewMeal(Meal meal) {

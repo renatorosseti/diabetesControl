@@ -11,6 +11,4 @@ public interface MainView extends View {
     void hideProgress();
 
     void setItems(List<Meal> items);
-
-    void showMessage(String message);
 }

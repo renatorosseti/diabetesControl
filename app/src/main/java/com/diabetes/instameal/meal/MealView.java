@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface MealView extends View {
 
-    void showProgress();
-
-    void hideProgress();
-
     void showMealCaptured(File file);
 
     void showMealItems(List<Meal> meals);
+
+    void showErrorMessage();
+
+    void closeActivity();
 }

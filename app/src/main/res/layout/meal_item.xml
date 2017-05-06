@@ -3,8 +3,8 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    cardview:cardCornerRadius="6dp"
-    cardview:cardElevation="1dp"
+    cardview:cardCornerRadius="3dp"
+    cardview:cardElevation="0.3dp"
     cardview:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -21,7 +21,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="33dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -29,13 +29,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <!--<TextView-->
-                    <!--style="@style/InfoFont"-->
-                    <!--android:text="@string/meal" />-->
-
                 <TextView
                     android:id="@+id/mealType"
-                    style="@style/TagFont"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -59,10 +61,10 @@
 
                 <TextView
                     style="@style/InfoFont"
-                    android:text="@string/after" />
+                    android:text="@string/dosage" />
 
                 <TextView
-                    android:id="@+id/posGlycemiaText"
+                    android:id="@+id/dosageText"
                     style="@style/TagFont" />
             </RelativeLayout>
 
@@ -73,12 +75,14 @@
 
                 <TextView
                     style="@style/InfoFont"
-                    android:text="@string/dosage" />
+                    android:text="@string/after" />
 
                 <TextView
-                    android:id="@+id/dosageText"
+                    android:id="@+id/posGlycemiaText"
                     style="@style/TagFont" />
             </RelativeLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

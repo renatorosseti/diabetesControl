@@ -22,10 +22,12 @@
     <string name="after">Depois: </string>
     <string name="dosage">Dose: </string>
     <string name="meal">Refeição: </string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_item_error">Por favor, selecione todos os dados da refeição </string>
+    <string name="current_glycemia">a glicemia atual </string>
+    <string name="dosage_meal">a dosagem </string>
+    <string name="meal_type">o nome da refeição </string>
 
     <string-array name="dosage_insulin_array">
-        <item>Dose</item>
         <item>1.0</item>
         <item>1.5</item>
         <item>2.0</item>
@@ -35,8 +37,11 @@
         <item>4.0</item>
         <item>4.5</item>
         <item>5.0</item>
+        <item>5.5</item>
         <item>6.0</item>
+        <item>6.5</item>
         <item>7.0</item>
+        <item>7.5</item>
         <item>8.0</item>
         <item>9.0</item>
         <item>10.0</item>
@@ -48,21 +53,20 @@
     </string-array>
 
     <string-array name="glycemia_array">
-        <item>Glicemia</item>
-        <item>Abaixo de 60</item>
-        <item>Entre 61 e 80</item>
-        <item>Entre 81 e 100</item>
+        <item>Abaixo de 70</item>
+        <item>Entre 71 e 100</item>
         <item>Entre 101 e 150</item>
         <item>Entre 151 e 200</item>
         <item>Entre 201 e 250</item>
         <item>Entre 251 e 300</item>
         <item>Entre 301 e 350</item>
+        <item>Entre 351 e 400</item>
+        <item>Entre 401 e 450</item>
     </string-array>
 
     <string-array name="meal_type_array">
-        <item>Refeição</item>
         <item>Café da manhã</item>
-        <item>Lanche do meio da manhã</item>
+        <item>Lanche da manhã</item>
         <item>Almoço</item>
         <item>Lanche da tarde</item>
         <item>Café da tarde</item>
