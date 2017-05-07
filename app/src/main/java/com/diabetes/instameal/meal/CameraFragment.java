@@ -368,9 +368,9 @@ public class CameraFragment extends Fragment
                         @Override
                         public void run() {
                             mListener.loadCapturedFile(file);
+                            closeCamera();
                         }
                     });
-                    closeCamera();
                 }
             }, 300);
 

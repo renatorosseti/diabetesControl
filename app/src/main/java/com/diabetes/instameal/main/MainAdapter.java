@@ -1,33 +1,28 @@
 package com.diabetes.instameal.main;
 
 import android.app.Activity;
-import android.graphics.Point;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.diabetes.instameal.R;
+import com.diabetes.instameal.core.ui.MealApplication;
 import com.diabetes.instameal.model.Meal;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
+import static com.diabetes.instameal.core.ui.MealApplication.HORIZONTAL;
+import static com.diabetes.instameal.core.ui.MealApplication.VERTICAL;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
-
 
     private Activity mContext;
 
     private List<Meal> meals;
 
     private Boolean mOrientation;
-
-    public static final Boolean VERTICAL = false;
-
-    public static final Boolean HORIZONTAL = true;
 
     public MainAdapter(Activity context, List<Meal> meals, Boolean orientation) {
         this.mContext = context;
@@ -39,18 +34,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return mOrientation;
     }
 
-    private int getDisplayParam(Boolean param) {
-        Display display = mContext.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return param == HORIZONTAL ? size.x : size.y;
-    }
-
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item, null);
         if(isOrientationHorizontal()) {
-            ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(getDisplayParam(HORIZONTAL), ViewGroup.LayoutParams.WRAP_CONTENT);
+            ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(MealApplication.getDisplayParam(HORIZONTAL), ViewGroup.LayoutParams.WRAP_CONTENT);
             view.setLayoutParams(layoutParams);
         }
         ViewHolder viewHolder = new ViewHolder(view);
@@ -66,25 +54,32 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.dosage.setText(meal.getDosageInsulin().toString());
         Picasso.with(mContext)
                 .load("file://" + meal.getPathImage())
-                .resize(getDisplayParam(HORIZONTAL), getDisplayParam(VERTICAL)/2)
+                .resize(MealApplication.getDisplayParam(HORIZONTAL), MealApplication.getDisplayParam(VERTICAL)/2)
                 .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.mealPhoto);
+        holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MealDialog newFragment = MealDialog.newInstance(meal.getPathImage());
+                newFragment.show(mContext.getFragmentManager(),"");
+            }
+        });
     }
-
 
     @Override
     public int getItemCount() {
         return meals.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         AppCompatImageView mealPhoto;
         TextView preGlycemiaText;
         TextView posGlycemiaText;
         TextView mealType;
         TextView dosage;
-        public ViewHolder(View v) {
+
+        ViewHolder(View v) {
             super(v);
             this.mealPhoto = (AppCompatImageView) v.findViewById(R.id.mealView);
             this.preGlycemiaText = (TextView) v.findViewById(R.id.preGlycemiaText);
@@ -93,6 +88,4 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             this.dosage = (TextView) v.findViewById(R.id.dosageText);
         }
     }
-
-
 }

@@ -25,6 +25,7 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
 
     @Override
     protected void onResume() {
+        mealService.retrieveAllMeals(this);
     }
 
     @Override

@@ -1,18 +1,13 @@
 package com.diabetes.instameal.main;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.core.ui.MealApplication;
 import com.diabetes.instameal.meal.MealActivity;
@@ -49,26 +44,10 @@ public class MainActivity extends MealApplication implements MainView {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     @Override protected void onResume() {
         super.onResume();
         presenter.onResume();
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override protected void onDestroy() {
@@ -87,6 +66,6 @@ public class MainActivity extends MealApplication implements MainView {
     }
 
     @Override public void setItems(List<Meal> items) {
-        mRecyclerView.setAdapter(new MainAdapter(this, items, MainAdapter.VERTICAL));
+        mRecyclerView.setAdapter(new MainAdapter(this, items, MealApplication.VERTICAL));
     }
 }

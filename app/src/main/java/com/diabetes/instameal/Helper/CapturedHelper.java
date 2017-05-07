@@ -10,10 +10,4 @@ public class CapturedHelper {
         String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(MealApplication.getContext().getPackageName()).append("/files/").append(imageName).toString();
         return path;
     }
-
-    public static File getFile(String imageName) {
-        String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(MealApplication.getContext().getPackageName()).append("/files/").append(imageName).toString();
-        File file = new File(path);
-        return file;
-    }
 }

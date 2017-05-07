@@ -5,13 +5,11 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.core.ui.MealApplication;
@@ -157,7 +155,7 @@ public class MealActivity extends MealApplication implements MealView {
 
     @Override
     public void showMealItems(List<Meal> meals) {
-        MainAdapter adapter = new MainAdapter(this,meals,MainAdapter.HORIZONTAL);
+        MainAdapter adapter = new MainAdapter(this,meals,MealApplication.HORIZONTAL);
         recordedMealList.setAdapter(adapter);
     }
 
