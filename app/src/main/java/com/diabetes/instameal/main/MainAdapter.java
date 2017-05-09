@@ -54,9 +54,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.dosage.setText(meal.getDosageInsulin().toString());
         Picasso.with(mContext)
                 .load("file://" + meal.getPathImage())
-//                .resize(MealApplication.getDisplayParam(HORIZONTAL), MealApplication.getDisplayParam(VERTICAL)/2)
                 .fit()
-//                .placeholder(R.mipmap.ic_meal)
                 .into(holder.mealPhoto);
         holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
