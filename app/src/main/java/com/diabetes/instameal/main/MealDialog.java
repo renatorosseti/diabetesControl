@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 
 import static com.diabetes.instameal.core.ui.MealApplication.HORIZONTAL;
 import static com.diabetes.instameal.core.ui.MealApplication.VERTICAL;
+import static com.diabetes.instameal.core.ui.MealApplication.getDisplayParam;
 
 public class MealDialog extends DialogFragment {
 
@@ -72,9 +73,7 @@ public class MealDialog extends DialogFragment {
         spinnerPosGlycemia.setAdapter(glycemiaAdapter);
         Picasso.with(getActivity())
                 .load("file://" + getArguments().getString("path"))
-                .resize(MealApplication.getDisplayParam(HORIZONTAL)/2, MealApplication.getDisplayParam(VERTICAL)/2)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
+                .fit()
                 .into(mealPhoto);
     }
 
