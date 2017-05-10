@@ -33,6 +33,11 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
+    public void updateMeal(Meal meal) {
+        mDaoManager.updateMeal(meal);
+    }
+
+    @Override
     public void destroy() {
         mDaoManager.destroy();
     }

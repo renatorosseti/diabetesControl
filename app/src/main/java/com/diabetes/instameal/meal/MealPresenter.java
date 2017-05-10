@@ -44,7 +44,10 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
         } else {
             view.showErrorMessage();
         }
+    }
 
+    public void updateMeal(Meal meal) {
+        mealService.updateMeal(meal);
     }
 
     @Override

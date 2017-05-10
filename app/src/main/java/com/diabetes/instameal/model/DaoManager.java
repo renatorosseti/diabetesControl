@@ -20,6 +20,11 @@ public class DaoManager {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(MealApplication.getContext(), "meal-db", null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         daoSession = daoMaster.newSession();
+
+    }
+
+    public synchronized void updateMeal(Meal meal) {
+        daoSession.getMealDao().update(meal);
     }
 
     public synchronized List<Meal> retrieveMealListType(String mealType) {
