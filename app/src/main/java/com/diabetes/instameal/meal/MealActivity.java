@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MealActivity extends MealApplication implements MealView {
+public class MealActivity extends MealApplication implements OnCapturePerformed, MealView {
 
     @BindView(R.id.mealListHorizontal)
     RecyclerView recordedMealList;
@@ -148,9 +148,16 @@ public class MealActivity extends MealApplication implements MealView {
         super.onDestroy();
     }
 
-    public void showMealCaptured(File file) {
+    @Override
+    public void loadCapturedFile(File file) {
+        presenter.setFile(file);
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
+    }
+
+    @Override
+    public void loadPosGlycemiaMeal(String imagePath, String posGlycemia) {
+
     }
 
     @Override

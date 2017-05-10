@@ -7,7 +7,7 @@ import com.diabetes.instameal.service.OnMealServicePerformed;
 import java.io.File;
 import java.util.List;
 
-public class MealPresenter extends Presenter<MealView> implements OnCapturePerformed, OnMealServicePerformed {
+public class MealPresenter extends Presenter<MealView> implements OnMealServicePerformed {
 
     private File mFile;
 
@@ -51,12 +51,6 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
     }
 
     @Override
-    public void loadCapturedFile(File file) {
-        this.mFile = file;
-        view.showMealCaptured(file);
-    }
-
-    @Override
     public void loadMeals(List<Meal> items) {
         view.showMealItems(items);
     }
@@ -75,5 +69,9 @@ public class MealPresenter extends Presenter<MealView> implements OnCapturePerfo
 
     public void setPreGlycemia(String preGlycemia) {
         this.preGlycemia = preGlycemia;
+    }
+
+    public void setFile(File file) {
+        this.mFile = file;
     }
 }

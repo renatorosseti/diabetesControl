@@ -447,7 +447,7 @@ public class CameraFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mListener = (OnCapturePerformed) ((MealActivity) getActivity()).getPresenter();
+        mListener = (OnCapturePerformed) getActivity();
         mFile = new File(getActivity().getExternalFilesDir(null), "meal_"+new Date().getTime()+".jpg");
     }
 
