@@ -26,7 +26,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
+                android:layout_weight="0.25"
+                android:paddingLeft="1dp"
+                android:paddingTop="2dp"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -53,7 +55,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.6">
+                    android:layout_weight="1">
 
                     <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                         style="@style/SpinnerMeal"
