@@ -46,10 +46,6 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
         }
     }
 
-    public void updateMeal(Meal meal) {
-        mealService.updateMeal(meal);
-    }
-
     @Override
     public void loadMeals(List<Meal> items) {
         view.showMealItems(items);

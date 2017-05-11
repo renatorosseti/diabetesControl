@@ -15,7 +15,7 @@ public interface MealService {
 
     void retrieveHistoricMeal(OnMealServicePerformed listener, String mealType);
 
-    void updateMeal(Meal meal);
+    void updateMeal(String imagePath,String posGlycemia);
 
 
 }

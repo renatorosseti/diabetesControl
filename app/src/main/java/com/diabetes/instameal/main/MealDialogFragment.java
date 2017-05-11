@@ -9,48 +9,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Button;
+
 import com.diabetes.instameal.R;
-import com.diabetes.instameal.core.ui.MealApplication;
+import com.diabetes.instameal.meal.OnCapturePerformed;
 import com.squareup.picasso.Picasso;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.diabetes.instameal.core.ui.MealApplication.HORIZONTAL;
-import static com.diabetes.instameal.core.ui.MealApplication.VERTICAL;
-import static com.diabetes.instameal.core.ui.MealApplication.getDisplayParam;
-
-public class MealDialog extends DialogFragment {
+public class MealDialogFragment extends DialogFragment {
 
     @BindView(R.id.mealView)
     AppCompatImageView mealPhoto;
-//
-//    @BindView(R.id.preGlycemiaText)
-//    TextView preGlycemiaText;
-//
-//    @BindView(R.id.posGlycemiaText)
-//    TextView posGlycemiaText;
-//
-//    @BindView(R.id.mealType)
-//    TextView mealType;
-//
-//    @BindView(R.id.dosageText)
-//    TextView dosage;
 
     @BindView(R.id.spinnerPosGlycemia)
     MaterialBetterSpinner spinnerPosGlycemia;
 
+    @BindView(R.id.cancelButton)
+    Button cancelButton;
+
+    @BindView(R.id.saveButton)
+    Button saveButton;
+
+    private String posGlycemia = "";
+
+    private OnCapturePerformed listener;
+
     private ArrayAdapter<CharSequence> glycemiaAdapter;
 
-
-    public static MealDialog newInstance(String path) {
-        MealDialog fragment = new MealDialog();
-
-        // Supply num input as an argument.
+    public static MealDialogFragment newInstance(String path) {
+        MealDialogFragment fragment = new MealDialogFragment();
         Bundle args = new Bundle();
         args.putString("path", path);
         fragment.setArguments(args);
@@ -61,12 +53,13 @@ public class MealDialog extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        listener = (OnCapturePerformed) context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.meal_item_editable, container, false);
+        View view = inflater.inflate(R.layout.fragment_meal, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -74,11 +67,34 @@ public class MealDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        final String imagePath = getArguments().getString("path").toString();
         glycemiaAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.glycemia_array, android.R.layout.simple_spinner_item);
         glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPosGlycemia.setAdapter(glycemiaAdapter);
+        spinnerPosGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                posGlycemia = glycemiaAdapter.getItem(position).toString();
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!posGlycemia.isEmpty()){
+                    listener.loadPosGlycemiaMeal(imagePath,posGlycemia);
+                }
+                dismiss();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         Picasso.with(getActivity())
-                .load("file://" + getArguments().getString("path"))
+                .load("file://" + imagePath)
                 .fit()
                 .into(mealPhoto);
     }

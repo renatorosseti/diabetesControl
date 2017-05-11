@@ -11,10 +11,13 @@ import android.widget.ProgressBar;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.core.ui.MealApplication;
 import com.diabetes.instameal.meal.MealActivity;
+import com.diabetes.instameal.meal.OnCapturePerformed;
 import com.diabetes.instameal.model.Meal;
+
+import java.io.File;
 import java.util.List;
 
-public class MainActivity extends MealApplication implements MainView {
+public class MainActivity extends MealApplication implements MainView, OnCapturePerformed {
 
     private RecyclerView mRecyclerView;
 
@@ -67,5 +70,15 @@ public class MainActivity extends MealApplication implements MainView {
 
     @Override public void setItems(List<Meal> items) {
         mRecyclerView.setAdapter(new MainAdapter(this, items, MealApplication.VERTICAL));
+    }
+
+    @Override
+    public void loadCapturedFile(File file) {
+
+    }
+
+    @Override
+    public void loadPosGlycemiaMeal(String imagePath, String posGlycemia) {
+        presenter.updateMeal(imagePath, posGlycemia);
     }
 }

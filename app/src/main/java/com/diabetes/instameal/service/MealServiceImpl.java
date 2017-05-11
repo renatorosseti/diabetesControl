@@ -26,15 +26,13 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void saveMeal(String preGlycemia, float dosageInsulin, String imageName, String type) {
-
         Meal meal = new Meal(null,preGlycemia,"",dosageInsulin,new Date(), 0, "", imageName, type);
-
         mDaoManager.addNewMeal(meal);
     }
 
     @Override
-    public void updateMeal(Meal meal) {
-        mDaoManager.updateMeal(meal);
+    public void updateMeal(String imagePath,String posGlycemia) {
+        mDaoManager.updateMeal(imagePath,posGlycemia);
     }
 
     @Override

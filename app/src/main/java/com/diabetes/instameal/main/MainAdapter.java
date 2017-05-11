@@ -36,10 +36,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item, null);
+        View view = null;
         if(isOrientationHorizontal()) {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item_h, null);
             ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(MealApplication.getDisplayParam(HORIZONTAL), ViewGroup.LayoutParams.WRAP_CONTENT);
             view.setLayoutParams(layoutParams);
+        } else {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item, null);
         }
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -56,13 +59,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 .load("file://" + meal.getPathImage())
                 .fit()
                 .into(holder.mealPhoto);
-        holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MealDialog newFragment = MealDialog.newInstance(meal.getPathImage());
-                newFragment.show(mContext.getFragmentManager(),"");
-            }
-        });
+        if (meal.getPosGlycemia().isEmpty()) {
+            holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
+                    dialogFragment.show(mContext.getFragmentManager(),"");
+                }
+            });
+        }
+
     }
 
     @Override

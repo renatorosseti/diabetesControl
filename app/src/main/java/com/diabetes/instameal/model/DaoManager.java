@@ -23,8 +23,12 @@ public class DaoManager {
 
     }
 
-    public synchronized void updateMeal(Meal meal) {
-        daoSession.getMealDao().update(meal);
+    public synchronized void updateMeal(String imagePath, String posGlycemia) {
+        Meal meal = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.PathImage.eq(imagePath)).unique();
+        if(meal != null) {
+            meal.setPosGlycemia(posGlycemia);
+            daoSession.getMealDao().update(meal);
+        }
     }
 
     public synchronized List<Meal> retrieveMealListType(String mealType) {

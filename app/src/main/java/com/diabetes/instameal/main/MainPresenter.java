@@ -28,4 +28,9 @@ public class MainPresenter extends Presenter<MainView> implements OnMealServiceP
         view.hideProgress();
         view.setItems(items);
     }
+
+    public void updateMeal(String imagePath,String posGlycemia) {
+
+        mealService.updateMeal(imagePath,posGlycemia);
+    }
 }
