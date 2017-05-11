@@ -616,7 +616,7 @@ public class CameraFragment extends Fragment
                             mPreviewSize.getWidth(), mPreviewSize.getHeight());
                 } else {
                     mTextureView.setAspectRatio(
-                            (int) (mPreviewSize.getHeight()*1.6), mPreviewSize.getWidth());
+                            (int) (mPreviewSize.getHeight()*1.4), mPreviewSize.getWidth());
                 }
 
                 // Check if the flash is supported.
