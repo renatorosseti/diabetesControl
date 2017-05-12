@@ -15,10 +15,10 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/mealView"
-            android:layout_width="400dp"
+            android:layout_width="300dp"
             android:layout_height="250dp"
             android:alwaysDrawnWithCache="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 style="@style/SpinnerMeal"
                 android:id="@+id/spinnerPosGlycemia"
-                android:hint="@string/dosage"
+                android:hint="@string/glycemia_afterwards"
                 cardview:met_floatingLabel="normal"/>
 
         </LinearLayout>

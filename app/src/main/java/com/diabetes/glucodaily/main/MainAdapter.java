@@ -59,15 +59,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 .load("file://" + meal.getPathImage())
                 .fit()
                 .into(holder.mealPhoto);
-        if (meal.getPosGlycemia().isEmpty()) {
-            holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
-                    dialogFragment.show(mContext.getFragmentManager(),"");
-                }
-            });
-        }
+//        if (meal.getPosGlycemia().isEmpty()) {
+//            holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
+//                    dialogFragment.show(mContext.getFragmentManager(),"");
+//                }
+//            });
+//        }
+        holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
+                dialogFragment.show(mContext.getFragmentManager(),"");
+            }
+        });
 
     }
 

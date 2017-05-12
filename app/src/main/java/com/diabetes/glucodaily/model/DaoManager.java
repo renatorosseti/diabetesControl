@@ -32,7 +32,7 @@ public class DaoManager {
     }
 
     public synchronized List<Meal> retrieveMealListType(String mealType) {
-        return daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(mealType)).orderDesc(MealDao.Properties.PosGlycemia).orderDesc(MealDao.Properties.Date).list();
+        return daoSession.getMealDao().queryBuilder().orderRaw(mealType).orderDesc(MealDao.Properties.PosGlycemia).orderDesc(MealDao.Properties.Date).list();
     }
 
     public synchronized List<Meal> retrieveAllMeals() {

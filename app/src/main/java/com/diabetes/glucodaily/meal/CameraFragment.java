@@ -910,6 +910,7 @@ public class CameraFragment extends Fragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.picture: {
+                view.setEnabled(false);
                 takePicture();
                 break;
             }

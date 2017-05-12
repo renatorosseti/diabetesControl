@@ -51,7 +51,7 @@
                     <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                         style="@style/SpinnerMeal"
                         android:id="@+id/spinnerGlycemia"
-                        android:hint="@string/before"
+                        android:hint="@string/glycemia_before"
                         app:met_floatingLabel="normal"/>
                 </RelativeLayout>
 

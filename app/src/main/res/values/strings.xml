@@ -19,8 +19,8 @@
     <string name="cancel">Cancelar</string>
     <string name="save">Salvar</string>
     <string name="next">Próximo</string>
-    <string name="before">Glicemia antes: </string>
-    <string name="after">Glicemia depois:</string>
+    <string name="glycemia_before">Glicemia antes: </string>
+    <string name="glycemia_afterwards">Glicemia depois:</string>
     <string name="dosage">Dose: </string>
     <string name="meal">Refeição: </string>
     <string name="select_item_error">Por favor, selecione todos os dados da refeição </string>
@@ -65,7 +65,7 @@
         <item>401 a 450</item>
     </string-array>
 
-    <string-array name="meal_type_array_line_skipping">
+    <string-array name="meal_type_array">
         <item>Café da \nmanhã</item>
         <item>Lanche - \nmanhã</item>
         <item>Almoço</item>
@@ -75,13 +75,4 @@
         <item>Lanche - \nnoite</item>
     </string-array>
 
-    <string-array name="meal_type_array">
-        <item>Café da manhã</item>
-        <item>Lanche - manhã</item>
-        <item>Almoço</item>
-        <item>Lanche - tarde</item>
-        <item>Café da tarde</item>
-        <item>Janta</item>
-        <item>Lanche - noite</item>
-    </string-array>
 </resources>

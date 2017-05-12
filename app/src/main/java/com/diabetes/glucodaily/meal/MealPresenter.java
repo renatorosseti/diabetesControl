@@ -1,6 +1,6 @@
 package com.diabetes.glucodaily.meal;
 
-import com.diabetes.glucodaily.Helper.CapturedHelper;
+import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.core.presenter.Presenter;
 import com.diabetes.glucodaily.model.Meal;
 import com.diabetes.glucodaily.service.OnMealServicePerformed;
@@ -39,7 +39,7 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
 
     public void saveMeal() {
         if(preGlycemia != null && dosageInsulin != null && mealType != null && mFile != null) {
-            mealService.saveMeal(preGlycemia, Float.parseFloat(dosageInsulin), CapturedHelper.getPath(mFile.getName()), mealType);
+            mealService.saveMeal(preGlycemia, Float.parseFloat(dosageInsulin), DataHelper.getPath(mFile.getName()), mealType);
             view.closeActivity();
         } else {
             view.showErrorMessage();

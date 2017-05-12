@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ViewFlipper;
+import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.MealApplication;
 import com.diabetes.glucodaily.main.MainAdapter;
@@ -18,6 +19,7 @@ import com.diabetes.glucodaily.model.Meal;
 import com.squareup.picasso.Picasso;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,8 +50,6 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
 
     private ArrayAdapter<CharSequence> glycemiaAdapter;
 
-    private ArrayAdapter<CharSequence> mealTypeAdapterSkippingLine;
-
     private ArrayAdapter<CharSequence> mealTypeAdapter;
 
     @Override
@@ -66,14 +66,12 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
                     .replace(R.id.content_capture, CameraFragment.newInstance())
                     .commit();
         }
-        setUpSpinners();
+
     }
 
     private void setUpSpinners() {
         dosageAdapter = ArrayAdapter.createFromResource(this, R.array.dosage_insulin_array, R.layout.spinner_item);
         glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, R.layout.spinner_item);
-        glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, R.layout.spinner_item);
-        mealTypeAdapterSkippingLine = ArrayAdapter.createFromResource(this, R.array.meal_type_array_line_skipping, R.layout.spinner_item);
         mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, R.layout.spinner_item);
 
         dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -82,13 +80,13 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
         glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGlycemia.setAdapter(glycemiaAdapter);
 
-        mealTypeAdapterSkippingLine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMealType.setAdapter(mealTypeAdapterSkippingLine);
+        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMealType.setAdapter(mealTypeAdapter);
 
         spinnerMealType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String mealType = mealTypeAdapter.getItem(position).toString();
+                String mealType = DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString());
                 presenter.setMealType(mealType);
                 presenter.retrieveHistoricMeal(mealType);
             }
@@ -96,7 +94,7 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
         spinnerGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                presenter.setPreGlycemia(glycemiaAdapter.getItem(position).toString());
+                presenter.setPreGlycemia(DataHelper.removeBreakLine(glycemiaAdapter.getItem(position).toString()));
             }
         });
         spinnerDosage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,6 +117,7 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
     @Override protected void onResume() {
         super.onResume();
         presenter.onResume();
+        setUpSpinners();
     }
 
     @Override
@@ -131,15 +130,11 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.confirm_meal:
-                saveMealCaptured();
+                presenter.saveMeal();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void saveMealCaptured() {
-        presenter.saveMeal();
     }
 
     @Override
@@ -157,6 +152,9 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
         presenter.setFile(file);
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
+        String mealType = mealTypeAdapter.getItem(DataHelper.getMealTypeRecommendation(new Date())).toString();
+        spinnerMealType.setText(mealType);
+        presenter.setMealType(mealType);
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.meal.OnCapturePerformed;
 import com.squareup.picasso.Picasso;
@@ -74,7 +75,7 @@ public class MealDialogFragment extends DialogFragment {
         spinnerPosGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                posGlycemia = glycemiaAdapter.getItem(position).toString();
+                posGlycemia = DataHelper.removeBreakLine(glycemiaAdapter.getItem(position).toString());
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {

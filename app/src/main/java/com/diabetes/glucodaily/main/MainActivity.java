@@ -13,7 +13,6 @@ import com.diabetes.glucodaily.core.ui.MealApplication;
 import com.diabetes.glucodaily.meal.MealActivity;
 import com.diabetes.glucodaily.meal.OnCapturePerformed;
 import com.diabetes.glucodaily.model.Meal;
-
 import java.io.File;
 import java.util.List;
 
