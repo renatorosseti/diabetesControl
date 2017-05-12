@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.diabetes.instameal.meal.MealActivity"
+    tools:context="com.diabetes.glucodaily.meal.MealActivity"
     tools:showIn="@layout/activity_meal">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

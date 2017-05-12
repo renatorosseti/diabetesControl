@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.diabetes.instameal.meal.CameraFragment"
+    tools:context="com.diabetes.glucodaily.meal.CameraFragment"
     android:background="#128C7E">
 
     <LinearLayout
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-            <com.diabetes.instameal.meal.AutoFitTextureView
+            <com.diabetes.glucodaily.meal.AutoFitTextureView
                 android:id="@+id/texture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
