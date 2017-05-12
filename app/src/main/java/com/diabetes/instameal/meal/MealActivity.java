@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import com.diabetes.instameal.R;
 import com.diabetes.instameal.core.ui.MealApplication;
@@ -68,9 +69,9 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
     }
 
     private void setUpSpinners() {
-        dosageAdapter = ArrayAdapter.createFromResource(this, R.array.dosage_insulin_array, android.R.layout.simple_spinner_item);
-        glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, android.R.layout.simple_spinner_item);
-        mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, android.R.layout.simple_spinner_item);
+        dosageAdapter = ArrayAdapter.createFromResource(this, R.array.dosage_insulin_array, R.layout.spinner_item);
+        glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, R.layout.spinner_item);
+        mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, R.layout.spinner_item);
 
         dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDosage.setAdapter(dosageAdapter);

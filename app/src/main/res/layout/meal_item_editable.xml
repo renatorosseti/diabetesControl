@@ -3,8 +3,8 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    cardview:cardCornerRadius="3dp"
-    cardview:cardElevation="0.3dp"
+    cardview:cardCornerRadius="6dp"
+    cardview:cardElevation="0.6dp"
     cardview:cardUseCompatPadding="true"
     style="@style/MyDialogTheme">
 
@@ -15,8 +15,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/mealView"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="400dp"
+            android:layout_height="250dp"
             android:alwaysDrawnWithCache="true"
             android:scaleType="centerCrop" />
 

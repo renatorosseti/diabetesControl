@@ -474,17 +474,6 @@ public class CameraFragment extends Fragment
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.confirm_meal:
-                item.setIcon(getActivity().getDrawable(android.R.drawable.alert_dark_frame));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public void onPause() {
         closeCamera();
         stopBackgroundThread();
@@ -616,7 +605,7 @@ public class CameraFragment extends Fragment
                             mPreviewSize.getWidth(), mPreviewSize.getHeight());
                 } else {
                     mTextureView.setAspectRatio(
-                            (int) (mPreviewSize.getHeight()*1.4), mPreviewSize.getWidth());
+                            (int) (mPreviewSize.getHeight()*1.1), mPreviewSize.getWidth());
                 }
 
                 // Check if the flash is supported.
