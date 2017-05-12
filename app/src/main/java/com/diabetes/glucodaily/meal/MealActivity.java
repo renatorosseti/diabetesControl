@@ -154,7 +154,7 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
         Picasso.with(this).load(file).into(imageCaptured);
         String mealType = mealTypeAdapter.getItem(DataHelper.getMealTypeRecommendation(new Date())).toString();
         spinnerMealType.setText(mealType);
-        presenter.setMealType(mealType);
+        presenter.setMealType(DataHelper.removeBreakLine(mealType));
     }
 
     @Override
