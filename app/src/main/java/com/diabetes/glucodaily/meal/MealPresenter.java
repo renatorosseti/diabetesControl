@@ -33,8 +33,8 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
         this.view = null;
     }
 
-    public void retrieveHistoricMeal(String mealType) {
-        mealService.retrieveHistoricMeal(this,mealType);
+    public void retrieveHistoricMeal(int mealTypeIndex) {
+        mealService.retrieveHistoricMeal(this,mealTypeIndex);
     }
 
     public void saveMeal() {

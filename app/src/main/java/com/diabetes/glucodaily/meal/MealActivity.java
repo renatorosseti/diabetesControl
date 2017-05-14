@@ -88,7 +88,7 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String mealType = DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString());
                 presenter.setMealType(mealType);
-                presenter.retrieveHistoricMeal(mealType);
+                presenter.retrieveHistoricMeal(position);
             }
         });
         spinnerGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -152,9 +152,11 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
         presenter.setFile(file);
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
-        String mealType = mealTypeAdapter.getItem(DataHelper.getMealTypeRecommendation(new Date())).toString();
+        int mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
+        String mealType = mealTypeAdapter.getItem(mealTypeIndex).toString();
         spinnerMealType.setText(mealType);
         presenter.setMealType(DataHelper.removeBreakLine(mealType));
+        presenter.retrieveHistoricMeal(mealTypeIndex);
     }
 
     @Override

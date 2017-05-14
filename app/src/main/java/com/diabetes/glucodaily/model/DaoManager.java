@@ -1,7 +1,11 @@
 package com.diabetes.glucodaily.model;
 
+import com.diabetes.glucodaily.Helper.DataHelper;
+import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.MealApplication;
 import java.util.List;
+
+import static com.diabetes.glucodaily.Helper.DataHelper.*;
 
 public class DaoManager {
 
@@ -31,8 +35,21 @@ public class DaoManager {
         }
     }
 
-    public synchronized List<Meal> retrieveMealListType(String mealType) {
-        return daoSession.getMealDao().queryBuilder().orderRaw(mealType).orderDesc(MealDao.Properties.PosGlycemia).orderDesc(MealDao.Properties.Date).list();
+    public synchronized List<Meal> retrieveMealListType(int mealTypeIndex) {
+        String mealType[] = MealApplication.getContext().getResources().getStringArray(R.array.meal_type_array);
+        List<Meal> meals = null;
+        if(mealTypeIndex == BREAKFAST || mealTypeIndex == MORNING_SNACK) {
+            meals = daoSession.getMealDao().queryBuilder().whereOr(MealDao.Properties.Type.eq(getMealType(mealType[BREAKFAST])),MealDao.Properties.Type.eq(getMealType(mealType[MORNING_SNACK]))).orderDesc(MealDao.Properties.PosGlycemia).orderDesc(MealDao.Properties.Date).list();
+        } else if(mealTypeIndex == LUNCH || mealTypeIndex == DINNER || mealTypeIndex == NIGHT_SNACK) {
+            meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(getMealType(mealType[mealTypeIndex]))).orderDesc(MealDao.Properties.PosGlycemia).orderDesc(MealDao.Properties.Date).list();
+        } else if(mealTypeIndex == AFTERNOON_SNACK || mealTypeIndex == AFTERNOON_COFFEE) {
+            meals = daoSession.getMealDao().queryBuilder().whereOr(MealDao.Properties.Type.eq(getMealType(mealType[AFTERNOON_COFFEE])),MealDao.Properties.Type.eq(getMealType(mealType[AFTERNOON_SNACK]))).orderDesc(MealDao.Properties.PosGlycemia).orderDesc(MealDao.Properties.Date).list();
+        }
+        return meals;
+    }
+
+    private String getMealType(String mealType) {
+        return DataHelper.removeBreakLine(mealType);
     }
 
     public synchronized List<Meal> retrieveAllMeals() {

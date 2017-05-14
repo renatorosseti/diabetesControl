@@ -35,7 +35,6 @@ public class MainActivity extends MealApplication implements MainView, OnCapture
         presenter = new MainPresenter(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

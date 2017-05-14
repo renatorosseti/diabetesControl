@@ -4,6 +4,9 @@ import android.os.Handler;
 import com.diabetes.glucodaily.model.DaoManager;
 import com.diabetes.glucodaily.model.Meal;
 import java.util.Date;
+import java.util.List;
+
+import javax.inject.Inject;
 
 public class MealServiceImpl implements MealService {
 
@@ -16,6 +19,8 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void retrieveAllMeals(final OnMealServicePerformed listener) {
+        List<Meal> meals = mDaoManager.retrieveAllMeals();
+        meals.addAll(meals);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -41,8 +46,8 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public void retrieveHistoricMeal(OnMealServicePerformed listener, String mealType) {
-         listener.loadMeals(mDaoManager.retrieveMealListType(mealType));
+    public void retrieveHistoricMeal(OnMealServicePerformed listener, int mealTypeIndex) {
+         listener.loadMeals(mDaoManager.retrieveMealListType(mealTypeIndex));
     }
 
     @Override

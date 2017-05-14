@@ -46,6 +46,10 @@ dependencies {
     compile 'me.emmano:blurstickyheaderlistview:0.1.+'
     compile 'com.github.charbgr:litho-picasso:1.0'
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
+    compile 'com.google.dagger:dagger-android:2.10'
+    compile 'com.google.dagger:dagger-android-support:2.10' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
+    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.+'
     testCompile 'org.json:json:20141113'

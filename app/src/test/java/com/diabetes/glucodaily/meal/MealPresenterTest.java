@@ -42,7 +42,7 @@ public class MealPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mealPresenter = new MealPresenter(view, context);
+        mealPresenter = new MealPresenter(view);
 
     }
 
@@ -65,13 +65,13 @@ public class MealPresenterTest {
 
         String mealType = "LUNCH";
         ArrayList<Meal> meals = new ArrayList<>();
-        meals.add(new Meal((long) 0, 100, 150, 5.0F, new Date(), 0, "description","idImage",mealType));
+        meals.add(new Meal((long) 0, "100 - 150", "0 a 100", 5.0F, new Date(), 0, "description","idImage",mealType));
 
-        when(mealDaoUtils.retrieveMealListType(mealType)).thenReturn(meals);
+        when(mealDaoUtils.retrieveMealListType(0)).thenReturn(meals);
 
-        mealPresenter.retrieveHistoricMeal(mealType);
+        mealPresenter.retrieveHistoricMeal(0);
 
-        verify(mealDaoUtils).retrieveMealListType(mealType);
+        verify(mealDaoUtils).retrieveMealListType(0);
     }
 
 

@@ -12,7 +12,7 @@ public interface MealService {
 
     void saveMeal(String preGlycemia, float dosageInsulin, String imageName, String type);
 
-    void retrieveHistoricMeal(OnMealServicePerformed listener, String mealType);
+    void retrieveHistoricMeal(OnMealServicePerformed listener, int mealTypeIndex);
 
     void updateMeal(String imagePath,String posGlycemia);
 
