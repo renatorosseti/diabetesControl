@@ -9,14 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import com.diabetes.glucodaily.R;
-import com.diabetes.glucodaily.core.ui.MealApplication;
-import com.diabetes.glucodaily.meal.MealActivity;
+import com.diabetes.glucodaily.core.ui.MealActivity;
 import com.diabetes.glucodaily.meal.OnCapturePerformed;
 import com.diabetes.glucodaily.model.Meal;
 import java.io.File;
 import java.util.List;
 
-public class MainActivity extends MealApplication implements MainView, OnCapturePerformed {
+public class MainActivity extends MealActivity implements MainView, OnCapturePerformed {
 
     private RecyclerView mRecyclerView;
 
@@ -39,7 +38,7 @@ public class MainActivity extends MealApplication implements MainView, OnCapture
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MealActivity.class);
+                Intent intent = new Intent(getApplicationContext(), com.diabetes.glucodaily.meal.MealActivity.class);
                 startActivity(intent);
             }
         });
@@ -67,7 +66,7 @@ public class MainActivity extends MealApplication implements MainView, OnCapture
     }
 
     @Override public void setItems(List<Meal> items) {
-        mRecyclerView.setAdapter(new MainAdapter(this, items, MealApplication.VERTICAL));
+        mRecyclerView.setAdapter(new MainAdapter(this, items, MealActivity.VERTICAL));
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
@@ -446,6 +447,7 @@ public class CameraFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         mListener = (OnCapturePerformed) getActivity();
         mFile = new File(getActivity().getExternalFilesDir(null), "meal_"+new Date().getTime()+".jpg");
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override

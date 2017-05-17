@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.diabetes.glucodaily.R;
-import com.diabetes.glucodaily.core.ui.MealApplication;
+import com.diabetes.glucodaily.core.ui.MealActivity;
 import com.diabetes.glucodaily.model.Meal;
 import com.squareup.picasso.Picasso;
 import java.util.List;
-import static com.diabetes.glucodaily.core.ui.MealApplication.HORIZONTAL;
-import static com.diabetes.glucodaily.core.ui.MealApplication.VERTICAL;
+import static com.diabetes.glucodaily.core.ui.MealActivity.HORIZONTAL;
+import static com.diabetes.glucodaily.core.ui.MealActivity.VERTICAL;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
@@ -39,7 +39,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         View view = null;
         if(isOrientationHorizontal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item_h, null);
-            ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(MealApplication.getDisplayParam(HORIZONTAL), ViewGroup.LayoutParams.WRAP_CONTENT);
+            ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(MealActivity.getDisplayParam(HORIZONTAL), ViewGroup.LayoutParams.WRAP_CONTENT);
             view.setLayoutParams(layoutParams);
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item, null);
@@ -90,8 +90,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             this.posGlycemiaText = (TextView) v.findViewById(R.id.posGlycemiaText);
             this.mealType = (TextView) v.findViewById(R.id.mealType);
             this.dosage = (TextView) v.findViewById(R.id.dosageText);
-            this.mealPhoto.setMinimumHeight(MealApplication.getDisplayParam(VERTICAL));
-            this.mealPhoto.setMinimumWidth(MealApplication.getDisplayParam(HORIZONTAL));
+            this.mealPhoto.setMinimumHeight(MealActivity.getDisplayParam(VERTICAL));
+            this.mealPhoto.setMinimumWidth(MealActivity.getDisplayParam(HORIZONTAL));
         }
     }
 }

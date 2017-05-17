@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ViewFlipper;
 import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
-import com.diabetes.glucodaily.core.ui.MealApplication;
 import com.diabetes.glucodaily.main.MainAdapter;
 import com.diabetes.glucodaily.model.Meal;
 import com.squareup.picasso.Picasso;
@@ -24,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MealActivity extends MealApplication implements OnCapturePerformed, MealView {
+public class MealActivity extends com.diabetes.glucodaily.core.ui.MealActivity implements OnCapturePerformed, MealView {
 
     @BindView(R.id.mealListHorizontal)
     RecyclerView recordedMealList;
@@ -166,7 +165,7 @@ public class MealActivity extends MealApplication implements OnCapturePerformed,
 
     @Override
     public void showMealItems(List<Meal> meals) {
-        MainAdapter adapter = new MainAdapter(this,meals,MealApplication.HORIZONTAL);
+        MainAdapter adapter = new MainAdapter(this,meals, com.diabetes.glucodaily.core.ui.MealActivity.HORIZONTAL);
         recordedMealList.setAdapter(adapter);
     }
 

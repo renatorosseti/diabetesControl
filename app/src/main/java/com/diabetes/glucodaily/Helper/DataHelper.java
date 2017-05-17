@@ -1,7 +1,9 @@
 package com.diabetes.glucodaily.Helper;
 
 import android.os.Environment;
-import com.diabetes.glucodaily.core.ui.MealApplication;
+import android.util.Log;
+
+import com.diabetes.glucodaily.core.ui.MealActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,7 +19,7 @@ public class DataHelper {
     public final static int NIGHT_SNACK = 6;
 
     public static String getPath(String imageName) {
-        String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(MealApplication.getContext().getPackageName()).append("/files/").append(imageName).toString();
+        String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(MealActivity.getContext().getPackageName()).append("/files/").append(imageName).toString();
         return path;
     }
 
@@ -29,17 +31,18 @@ public class DataHelper {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.get(Calendar.HOUR_OF_DAY);
-        if(calendar.get(Calendar.HOUR_OF_DAY) > 5 && calendar.get(Calendar.HOUR_OF_DAY) <= 9) {
+        Log.i("Time", "Time: "+calendar.get(Calendar.HOUR_OF_DAY));
+        if(calendar.get(Calendar.HOUR_OF_DAY) >= 5 && calendar.get(Calendar.HOUR_OF_DAY) < 10) {
             return BREAKFAST;
-        } else if (calendar.get(Calendar.HOUR_OF_DAY) > 9 && calendar.get(Calendar.HOUR_OF_DAY) <= 11) {
+        } else if (calendar.get(Calendar.HOUR_OF_DAY) >= 10 && calendar.get(Calendar.HOUR_OF_DAY) < 11) {
             return MORNING_SNACK;
-        } else if (calendar.get(Calendar.HOUR_OF_DAY) > 11 && calendar.get(Calendar.HOUR_OF_DAY) <= 13) {
+        } else if (calendar.get(Calendar.HOUR_OF_DAY) >= 11 && calendar.get(Calendar.HOUR_OF_DAY) < 14) {
             return LUNCH;
-        } else if (calendar.get(Calendar.HOUR_OF_DAY) > 13 && calendar.get(Calendar.HOUR_OF_DAY) <= 15) {
+        } else if (calendar.get(Calendar.HOUR_OF_DAY) >= 14 && calendar.get(Calendar.HOUR_OF_DAY) < 15) {
             return AFTERNOON_SNACK;
-        } else if (calendar.get(Calendar.HOUR_OF_DAY) > 15 && calendar.get(Calendar.HOUR_OF_DAY) <= 19) {
+        } else if (calendar.get(Calendar.HOUR_OF_DAY) >= 15 && calendar.get(Calendar.HOUR_OF_DAY) < 19) {
             return AFTERNOON_COFFEE;
-        } else if (calendar.get(Calendar.HOUR_OF_DAY) > 19 && calendar.get(Calendar.HOUR_OF_DAY) <= 22) {
+        } else if (calendar.get(Calendar.HOUR_OF_DAY) >= 19 && calendar.get(Calendar.HOUR_OF_DAY) <= 23) {
             return DINNER;
         } else {
             return NIGHT_SNACK;
