@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.widget.Toast;
 
-public abstract class MealActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private static Context mContext;
 

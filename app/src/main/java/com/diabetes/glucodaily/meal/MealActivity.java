@@ -1,6 +1,8 @@
 package com.diabetes.glucodaily.meal;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
+import com.diabetes.glucodaily.core.ui.BaseActivity;
 import com.diabetes.glucodaily.main.MainAdapter;
 import com.diabetes.glucodaily.model.Meal;
 import com.squareup.picasso.Picasso;
@@ -22,8 +28,9 @@ import java.util.Date;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MealActivity extends com.diabetes.glucodaily.core.ui.MealActivity implements OnCapturePerformed, MealView {
+public class MealActivity extends BaseActivity implements OnCapturePerformed, MealView {
 
     @BindView(R.id.mealListHorizontal)
     RecyclerView recordedMealList;
@@ -35,13 +42,16 @@ public class MealActivity extends com.diabetes.glucodaily.core.ui.MealActivity i
     AppCompatImageView imageCaptured;
 
     @BindView(R.id.spinnerMealType)
-    MaterialBetterSpinner spinnerMealType;
+    TextView spinnerMealType;
 
     @BindView(R.id.spinnerGlycemia)
-    MaterialBetterSpinner spinnerGlycemia;
+    TextView spinnerGlycemia;
 
     @BindView(R.id.spinnerDosage)
-    MaterialBetterSpinner spinnerDosage;
+    TextView spinnerDosage;
+
+    @BindView(R.id.mealCaptured)
+    View mViewCaptured;
 
     private MealPresenter presenter;
 
@@ -73,35 +83,35 @@ public class MealActivity extends com.diabetes.glucodaily.core.ui.MealActivity i
         glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, R.layout.spinner_item);
         mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, R.layout.spinner_item);
 
-        dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDosage.setAdapter(dosageAdapter);
+//        dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerDosage.setAdapter(dosageAdapter);
 
-        glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGlycemia.setAdapter(glycemiaAdapter);
+//        glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerGlycemia.setAdapter(glycemiaAdapter);
 
-        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMealType.setAdapter(mealTypeAdapter);
+//        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerMealType.setAdapter(mealTypeAdapter);
 
-        spinnerMealType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String mealType = DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString());
-                presenter.setMealType(mealType);
-                presenter.retrieveHistoricMeal(position);
-            }
-        });
-        spinnerGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                presenter.setPreGlycemia(DataHelper.removeBreakLine(glycemiaAdapter.getItem(position).toString()));
-            }
-        });
-        spinnerDosage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                presenter.setDosage(dosageAdapter.getItem(position).toString());
-            }
-        });
+//        spinnerMealType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                String mealType = DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString());
+//                presenter.setMealType(mealType);
+//                presenter.retrieveHistoricMeal(position);
+//            }
+//        });
+//        spinnerGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                presenter.setPreGlycemia(DataHelper.removeBreakLine(glycemiaAdapter.getItem(position).toString()));
+//            }
+//        });
+//        spinnerDosage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                presenter.setDosage(dosageAdapter.getItem(position).toString());
+//            }
+//        });
     }
 
     private void bindView() {
@@ -163,10 +173,67 @@ public class MealActivity extends com.diabetes.glucodaily.core.ui.MealActivity i
 
     }
 
+    @OnClick(R.id.mealGlycemia)
+    public void setMealPreGlycemia() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.input_meal, null);
+        final EditText glycemiaBefore = (EditText) view.findViewById(R.id.valueInput);
+        glycemiaBefore.setHint(R.string.glycemia_before);
+        builder.setView(view);
+        builder.setPositiveButton(
+                "Confirmar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        spinnerGlycemia.setText(glycemiaBefore.getText().toString());
+                    }
+                });
+        builder.show();
+    }
+
+    @OnClick(R.id.mealDosage)
+    public void setMealDosage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.input_meal, null);
+        final EditText dosage = (EditText) view.findViewById(R.id.valueInput);
+        dosage.setHint(R.string.glycemia_before);
+        builder.setView(view);
+        builder.setPositiveButton(
+                "Confirmar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        spinnerDosage.setText(dosage.getText().toString());
+                    }
+                });
+        builder.show();
+    }
+
+    @OnClick(R.id.mealType)
+    public void setMealType() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.input_meal_type, null);
+        final SeekBar seekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        final TextView mealTypeValue = (TextView) view.findViewById(R.id.valueMealType);
+        int mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
+        mealTypeValue.setText(mealTypeAdapter.getItem(mealTypeIndex).toString());
+
+        seekBar.setProgress(mealTypeIndex);
+        builder.setView(view);
+        builder.setPositiveButton(
+                "Confirmar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        spinnerMealType.setText(mealTypeAdapter.getItem(seekBar.getProgress()).toString());
+                    }
+                });
+        builder.show();
+    }
+
     @Override
     public void showMealItems(List<Meal> meals) {
-        MainAdapter adapter = new MainAdapter(this,meals, com.diabetes.glucodaily.core.ui.MealActivity.HORIZONTAL);
+        MainAdapter adapter = new MainAdapter(this,meals, HORIZONTAL);
         recordedMealList.setAdapter(adapter);
+
+//        mViewCaptured.setY(meals.isEmpty() ? 300f : 0f);
     }
 
     @Override

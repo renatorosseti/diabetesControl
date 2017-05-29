@@ -2,7 +2,7 @@ package com.diabetes.glucodaily.model;
 
 import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
-import com.diabetes.glucodaily.core.ui.MealActivity;
+import com.diabetes.glucodaily.core.ui.BaseActivity;
 import java.util.List;
 
 import static com.diabetes.glucodaily.Helper.DataHelper.*;
@@ -21,7 +21,7 @@ public class DaoManager {
     }
 
     public void init() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(MealActivity.getContext(), "meal-db", null);
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(BaseActivity.getContext(), "meal-db", null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         daoSession = daoMaster.newSession();
 
@@ -36,16 +36,16 @@ public class DaoManager {
     }
 
     public synchronized List<Meal> retrieveMealListType(int mealTypeIndex) {
-        String mealType[] = MealActivity.getContext().getResources().getStringArray(R.array.meal_type_array);
+        String mealType[] = BaseActivity.getContext().getResources().getStringArray(R.array.meal_type_array);
         List<Meal> meals = null;
         if(mealTypeIndex == BREAKFAST || mealTypeIndex == MORNING_SNACK) {
             meals = daoSession.getMealDao().queryBuilder().whereOr(MealDao.Properties.Type.eq(getMealType(mealType[BREAKFAST])),MealDao.Properties.Type.eq(getMealType(mealType[MORNING_SNACK]))).orderDesc(MealDao.Properties.Date).list();
         } else if(mealTypeIndex == LUNCH || mealTypeIndex == DINNER || mealTypeIndex == NIGHT_SNACK) {
             meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(getMealType(mealType[mealTypeIndex]))).orderDesc(MealDao.Properties.Date).list();
-        } else if(mealTypeIndex == AFTERNOON_SNACK || mealTypeIndex == AFTERNOON_COFFEE) {
-            meals = daoSession.getMealDao().queryBuilder().whereOr(MealDao.Properties.Type.eq(getMealType(mealType[AFTERNOON_COFFEE])),MealDao.Properties.Type.eq(getMealType(mealType[AFTERNOON_SNACK]))).orderDesc(MealDao.Properties.Date).list();
+        } else if(mealTypeIndex == AFTERNOON_COFFEE) {
+            meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(getMealType(mealType[AFTERNOON_COFFEE]))).orderDesc(MealDao.Properties.Date).list();
         }
-        return meals.size() > 0 ? meals : retrieveAllMeals();
+        return meals.size() > 0 ? meals : meals;
     }
 
     private String getMealType(String mealType) {

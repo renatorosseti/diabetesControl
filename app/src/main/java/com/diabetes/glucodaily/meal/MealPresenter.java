@@ -25,7 +25,7 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
 
     @Override
     protected void onResume() {
-        mealService.retrieveAllMeals(this);
+//        mealService.retrieveAllMeals(this);
     }
 
     @Override
