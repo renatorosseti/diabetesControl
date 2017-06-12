@@ -42,36 +42,53 @@
                     android:orientation="vertical">
                     <TextView
                         style="@style/SpinnerMeal"
-                        android:hint="@string/glycemia_before"/>
+                        android:hint="@string/meal"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/SpinnerMeal"
-                        android:id="@+id/spinnerMealType"
-                        android:layout_marginTop="6dp"
-                        android:textSize="12sp"
-                        android:hint="________"
-                        android:textColor="@color/colorBlack" />
+                        <TextView
+                            style="@style/SpinnerMeal"
+                            android:id="@+id/spinnerMealType"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:hint="________"
+                            android:textColor="@color/colorBlack" />
+
+                        <ImageView
+                            style="@style/ArrowImage"
+                            android:layout_alignBottom="@+id/spinnerMealType"
+                            android:src="@android:drawable/arrow_down_float"/>
+                    </RelativeLayout>
+
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:id="@+id/mealGlycemia"
-                    android:layout_weight="1"
+                    android:layout_weight="1.2"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <TextView
                         style="@style/SpinnerMeal"
                         android:hint="@string/glycemia_before"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/SpinnerMeal"
+                            android:id="@+id/spinnerGlycemia"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:hint="________"
+                            android:textColor="@color/colorBlack" />
 
-                    <TextView
-                        style="@style/SpinnerMeal"
-                        android:id="@+id/spinnerGlycemia"
-                        android:layout_marginTop="6dp"
-                        android:textSize="12sp"
-                        android:hint="________"
-                        android:textColor="@color/colorBlack" />
+                        <ImageView
+                            style="@style/ArrowImage"
+                            android:layout_alignBottom="@+id/spinnerGlycemia"/>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,14 +102,23 @@
                     <TextView
                         style="@style/SpinnerMeal"
                         android:hint="@string/dosage"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/SpinnerMeal"
+                            android:id="@+id/spinnerDosage"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:hint="________"
+                            android:textColor="@color/colorBlack"
+                            android:layout_width="wrap_content" />
 
-                    <TextView
-                        style="@style/SpinnerMeal"
-                        android:id="@+id/spinnerDosage"
-                        android:layout_marginTop="6dp"
-                        android:textSize="12sp"
-                        android:hint="________"
-                        android:textColor="@color/colorBlack" />
+                        <ImageView
+                            style="@style/ArrowImage"
+                            android:layout_alignBottom="@+id/spinnerDosage"/>
+                    </RelativeLayout>
                 </LinearLayout>
 
             </LinearLayout>

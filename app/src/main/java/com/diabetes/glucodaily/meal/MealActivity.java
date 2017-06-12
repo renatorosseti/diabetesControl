@@ -53,6 +53,8 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     @BindView(R.id.mealCaptured)
     View mViewCaptured;
 
+    int mealTypeIndex;
+
     private MealPresenter presenter;
 
     private ArrayAdapter<CharSequence> dosageAdapter;
@@ -161,7 +163,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         presenter.setFile(file);
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
-        int mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
+        mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
         String mealType = mealTypeAdapter.getItem(mealTypeIndex).toString();
         spinnerMealType.setText(mealType);
         presenter.setMealType(DataHelper.removeBreakLine(mealType));
@@ -184,7 +186,9 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
                 "Confirmar",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        spinnerGlycemia.setText(glycemiaBefore.getText().toString());
+                        String preGlycemya = glycemiaBefore.getText().toString();
+                        spinnerGlycemia.setText(preGlycemya);
+                        presenter.setPreGlycemia(preGlycemya);
                     }
                 });
         builder.show();
@@ -201,7 +205,9 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
                 "Confirmar",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        spinnerDosage.setText(dosage.getText().toString());
+                        String dosageValue = dosage.getText().toString();
+                        spinnerDosage.setText(dosageValue);
+                        presenter.setDosage(dosageValue);
                     }
                 });
         builder.show();
@@ -213,16 +219,36 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         View view = getLayoutInflater().inflate(R.layout.input_meal_type, null);
         final SeekBar seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         final TextView mealTypeValue = (TextView) view.findViewById(R.id.valueMealType);
-        int mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
-        mealTypeValue.setText(mealTypeAdapter.getItem(mealTypeIndex).toString());
+        mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
+        mealTypeValue.setText(DataHelper.removeBreakLine(mealTypeAdapter.getItem(mealTypeIndex).toString()));
 
         seekBar.setProgress(mealTypeIndex);
         builder.setView(view);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int position, boolean b) {
+                mealTypeValue.setText(DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString()));
+                mealTypeIndex = position;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         builder.setPositiveButton(
                 "Confirmar",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        spinnerMealType.setText(mealTypeAdapter.getItem(seekBar.getProgress()).toString());
+                        String mealType = mealTypeAdapter.getItem(seekBar.getProgress()).toString();
+                        spinnerMealType.setText(mealType);
+                        presenter.setMealType(mealType);
+                        presenter.retrieveHistoricMeal(mealTypeIndex);
                     }
                 });
         builder.show();

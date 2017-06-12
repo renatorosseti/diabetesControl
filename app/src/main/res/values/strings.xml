@@ -19,10 +19,10 @@
     <string name="cancel">Cancelar</string>
     <string name="save">Salvar</string>
     <string name="next">Próximo</string>
-    <string name="glycemia_before">Glicemia antes: </string>
-    <string name="glycemia_afterwards">Glicemia depois:</string>
-    <string name="dosage">Dose: </string>
-    <string name="meal">Refeição: </string>
+    <string name="glycemia_before">Glicemia antes </string>
+    <string name="glycemia_afterwards">Glicemia depois</string>
+    <string name="dosage">Dose </string>
+    <string name="meal">Refeição </string>
     <string name="select_item_error">Por favor, selecione todos os dados da refeição </string>
     <string name="current_glycemia">a glicemia atual </string>
     <string name="dosage_meal">a dosagem </string>
@@ -69,7 +69,6 @@
         <item>Café da \nmanhã</item>
         <item>Lanche - \nmanhã</item>
         <item>Almoço</item>
-        <item>Lanche - \ntarde</item>
         <item>Café da \ntarde</item>
         <item>Janta</item>
         <item>Lanche - \nnoite</item>
