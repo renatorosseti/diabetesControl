@@ -9,8 +9,8 @@ public class SchemaGenerator {
         Schema schema = new Schema(1, "com.diabetes.glucodaily.model");
         Entity meal = schema.addEntity("Meal");
         meal.addIdProperty();
-        meal.addStringProperty("preGlycemia");
-        meal.addStringProperty("posGlycemia");
+        meal.addIntProperty("preGlycemia");
+        meal.addIntProperty("posGlycemia");
         meal.addFloatProperty("dosageInsulin");
         meal.addDateProperty("date");
         meal.addIntProperty("sportLevel");

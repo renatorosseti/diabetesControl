@@ -76,6 +76,6 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
 
     @Override
     public void loadPosGlycemiaMeal(String imagePath, String posGlycemia) {
-        presenter.updateMeal(imagePath, posGlycemia);
+        presenter.updateMeal(imagePath, Integer.parseInt(posGlycemia));
     }
 }

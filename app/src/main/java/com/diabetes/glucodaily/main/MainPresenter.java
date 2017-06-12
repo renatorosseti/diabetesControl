@@ -29,7 +29,7 @@ public class MainPresenter extends Presenter<MainView> implements OnMealServiceP
         view.setItems(items);
     }
 
-    public void updateMeal(String imagePath,String posGlycemia) {
+    public void updateMeal(String imagePath,Integer posGlycemia) {
 
         mealService.updateMeal(imagePath,posGlycemia);
         mealService.retrieveAllMeals(this);

@@ -84,36 +84,6 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         dosageAdapter = ArrayAdapter.createFromResource(this, R.array.dosage_insulin_array, R.layout.spinner_item);
         glycemiaAdapter = ArrayAdapter.createFromResource(this, R.array.glycemia_array, R.layout.spinner_item);
         mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, R.layout.spinner_item);
-
-//        dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerDosage.setAdapter(dosageAdapter);
-
-//        glycemiaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerGlycemia.setAdapter(glycemiaAdapter);
-
-//        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerMealType.setAdapter(mealTypeAdapter);
-
-//        spinnerMealType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                String mealType = DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString());
-//                presenter.setMealType(mealType);
-//                presenter.retrieveHistoricMeal(position);
-//            }
-//        });
-//        spinnerGlycemia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                presenter.setPreGlycemia(DataHelper.removeBreakLine(glycemiaAdapter.getItem(position).toString()));
-//            }
-//        });
-//        spinnerDosage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                presenter.setDosage(dosageAdapter.getItem(position).toString());
-//            }
-//        });
     }
 
     private void bindView() {
@@ -258,8 +228,6 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     public void showMealItems(List<Meal> meals) {
         MainAdapter adapter = new MainAdapter(this,meals, HORIZONTAL);
         recordedMealList.setAdapter(adapter);
-
-//        mViewCaptured.setY(meals.isEmpty() ? 300f : 0f);
     }
 
     @Override

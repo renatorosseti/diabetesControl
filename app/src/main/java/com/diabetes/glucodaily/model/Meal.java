@@ -7,8 +7,8 @@ package com.diabetes.glucodaily.model;
 public class Meal {
 
     private Long id;
-    private String preGlycemia;
-    private String posGlycemia;
+    private Integer preGlycemia;
+    private Integer posGlycemia;
     private Float dosageInsulin;
     private java.util.Date date;
     private Integer sportLevel;
@@ -23,7 +23,7 @@ public class Meal {
         this.id = id;
     }
 
-    public Meal(Long id, String preGlycemia, String posGlycemia, Float dosageInsulin, java.util.Date date, Integer sportLevel, String description, String pathImage, String type) {
+    public Meal(Long id, Integer preGlycemia, Integer posGlycemia, Float dosageInsulin, java.util.Date date, Integer sportLevel, String description, String pathImage, String type) {
         this.id = id;
         this.preGlycemia = preGlycemia;
         this.posGlycemia = posGlycemia;
@@ -43,19 +43,19 @@ public class Meal {
         this.id = id;
     }
 
-    public String getPreGlycemia() {
+    public Integer getPreGlycemia() {
         return preGlycemia;
     }
 
-    public void setPreGlycemia(String preGlycemia) {
+    public void setPreGlycemia(Integer preGlycemia) {
         this.preGlycemia = preGlycemia;
     }
 
-    public String getPosGlycemia() {
+    public Integer getPosGlycemia() {
         return posGlycemia;
     }
 
-    public void setPosGlycemia(String posGlycemia) {
+    public void setPosGlycemia(Integer posGlycemia) {
         this.posGlycemia = posGlycemia;
     }
 

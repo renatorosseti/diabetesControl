@@ -59,7 +59,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 .load("file://" + meal.getPathImage())
                 .fit()
                 .into(holder.mealPhoto);
-        if (meal.getPosGlycemia().isEmpty()) {
+        if (meal.getPosGlycemia() == 0) {
             holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -68,7 +68,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 }
             });
         }
-
     }
 
     @Override
