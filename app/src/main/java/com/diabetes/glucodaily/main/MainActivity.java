@@ -15,22 +15,28 @@ import com.diabetes.glucodaily.model.Meal;
 import java.io.File;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
+
 public class MainActivity extends BaseActivity implements MainView, OnCapturePerformed {
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.listRecycler)
+    RecyclerView mRecyclerView;
 
-    private ProgressBar progressBar;
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
 
-    private MainPresenter presenter;
+    MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        mRecyclerView = (RecyclerView) findViewById(R.id.listRecycler);
+        ButterKnife.bind(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        progressBar = (ProgressBar) findViewById(R.id.progress);
         presenter = new MainPresenter(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,4 +84,5 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
     public void loadPosGlycemiaMeal(String imagePath, String posGlycemia) {
         presenter.updateMeal(imagePath, Integer.parseInt(posGlycemia));
     }
+
 }

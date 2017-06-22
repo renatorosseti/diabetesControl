@@ -10,13 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/item_meal"
         android:background="@color/color_white"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/mealView"
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="290dp"
             android:alwaysDrawnWithCache="true"
             android:background="@color/lighter_gray"
             android:scaleType="centerCrop" />

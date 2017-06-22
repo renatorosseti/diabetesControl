@@ -22,14 +22,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:gravity="center">
 
-            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                style="@style/SpinnerMeal"
+            <EditText
+                style="@style/TagFont"
                 android:id="@+id/spinnerPosGlycemia"
-                android:hint="@string/glycemia_afterwards"
-                cardview:met_floatingLabel="normal"/>
+                android:maxLength="3"
+                android:inputType="number"
+                android:hint="@string/glycemia_afterwards"/>
+
 
         </LinearLayout>
     </LinearLayout>

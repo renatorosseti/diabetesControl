@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -22,7 +21,6 @@ import com.diabetes.glucodaily.core.ui.BaseActivity;
 import com.diabetes.glucodaily.main.MainAdapter;
 import com.diabetes.glucodaily.model.Meal;
 import com.squareup.picasso.Picasso;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -150,7 +148,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.input_meal, null);
         final EditText glycemiaBefore = (EditText) view.findViewById(R.id.valueInput);
-        glycemiaBefore.setHint(R.string.glycemia_before);
+        glycemiaBefore.setHint(R.string.dosage_meal);
         builder.setView(view);
         builder.setPositiveButton(
                 "Confirmar",

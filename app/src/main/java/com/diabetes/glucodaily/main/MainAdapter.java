@@ -13,6 +13,12 @@ import com.diabetes.glucodaily.core.ui.BaseActivity;
 import com.diabetes.glucodaily.model.Meal;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
+
 import static com.diabetes.glucodaily.core.ui.BaseActivity.HORIZONTAL;
 import static com.diabetes.glucodaily.core.ui.BaseActivity.VERTICAL;
 
@@ -23,6 +29,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     private List<Meal> meals;
 
     private Boolean mOrientation;
+
+    private MainPresenter mPresenter;
 
     public MainAdapter(Activity context, List<Meal> meals, Boolean orientation) {
         this.mContext = context;
@@ -44,7 +52,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meal_item, null);
         }
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, position);
         return viewHolder;
     }
 
@@ -59,15 +67,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 .load("file://" + meal.getPathImage())
                 .fit()
                 .into(holder.mealPhoto);
-        if (meal.getPosGlycemia() == 0) {
-            holder.mealPhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
-                    dialogFragment.show(mContext.getFragmentManager(),"");
-                }
-            });
-        }
+//
     }
 
     @Override
@@ -76,21 +76,29 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        AppCompatImageView mealPhoto;
-        TextView preGlycemiaText;
-        TextView posGlycemiaText;
-        TextView mealType;
-        TextView dosage;
+        @BindView(R.id.mealView) AppCompatImageView mealPhoto;
+        @BindView(R.id.preGlycemiaText) TextView preGlycemiaText;
+        @BindView(R.id.posGlycemiaText) TextView posGlycemiaText;
+        @BindView(R.id.mealType) TextView mealType;
+        @BindView(R.id.dosageText) TextView dosage;
 
-        ViewHolder(View v) {
+        ViewHolder(View v, int position) {
             super(v);
-            this.mealPhoto = (AppCompatImageView) v.findViewById(R.id.mealView);
-            this.preGlycemiaText = (TextView) v.findViewById(R.id.preGlycemiaText);
-            this.posGlycemiaText = (TextView) v.findViewById(R.id.posGlycemiaText);
-            this.mealType = (TextView) v.findViewById(R.id.mealType);
-            this.dosage = (TextView) v.findViewById(R.id.dosageText);
+            ButterKnife.bind(this, v);
             this.mealPhoto.setMinimumHeight(BaseActivity.getDisplayParam(VERTICAL));
             this.mealPhoto.setMinimumWidth(BaseActivity.getDisplayParam(HORIZONTAL));
+        }
+
+        @OnClick(R.id.item_meal)
+        public void onClick(View view) {
+            MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meals.get(getAdapterPosition()).getPathImage());
+            dialogFragment.show(mContext.getFragmentManager(),"");
+        }
+
+        @OnLongClick(R.id.item_meal)
+        public void onLongClick(View view) {
+            MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meals.get(getAdapterPosition()).getPathImage());
+            dialogFragment.show(mContext.getFragmentManager(),"");
         }
     }
 }
