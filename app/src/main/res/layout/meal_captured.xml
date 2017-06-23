@@ -72,7 +72,7 @@
                     android:orientation="vertical">
                     <TextView
                         style="@style/SpinnerMeal"
-                        android:hint="@string/glycemia_before"/>
+                        android:hint="@string/glycemia_actual"/>
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

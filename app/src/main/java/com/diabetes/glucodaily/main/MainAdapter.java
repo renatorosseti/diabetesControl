@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.BaseActivity;
 import com.diabetes.glucodaily.model.Meal;
+import com.diabetes.glucodaily.model.MealHolder;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,32 +19,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-
 import static com.diabetes.glucodaily.core.ui.BaseActivity.HORIZONTAL;
 import static com.diabetes.glucodaily.core.ui.BaseActivity.VERTICAL;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
-    private BaseActivity mContext;
+    private BaseActivity mActivity;
 
-    private List<Meal> meals;
+    private List<MealHolder> mealHolders;
 
     private List<Meal> removeMeals;
 
     private Boolean mOrientation;
 
-    private MainPresenter mPresenter;
-
-    public MainAdapter(BaseActivity context, List<Meal> meals, Boolean orientation) {
-        this.mContext = context;
-        this.meals = meals;
+    public MainAdapter(BaseActivity context, List<MealHolder> mealHolders, Boolean orientation) {
+        this.mActivity = context;
+        this.mealHolders = mealHolders;
         this.removeMeals = new ArrayList<>();
         this.mOrientation = orientation;
     }
 
     public void setMealsChecked() {
-        for (Meal meal : meals) {
-            meal.setSelected(false);
+        for (MealHolder mealHolder : mealHolders) {
+            mealHolder.setSelected(false);
         }
         removeMeals.clear();
         notifyDataSetChanged();
@@ -68,22 +67,24 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Meal meal = meals.get(position);
+        final MealHolder mealHolder = mealHolders.get(position);
+        final Meal meal = mealHolder.getMeal();
         holder.preGlycemiaText.setText(meal.getPreGlycemia().toString());
-        holder.posGlycemiaText.setText(meal.getPosGlycemia() == 0 ? mContext.getString(R.string.fill_pos_glycemia) : meal.getPosGlycemia().toString());
-        holder.mealType.setText(meal.getType());
+        String posGlycemiaPlaceHolder = isOrientationHorizontal() ? " - " : mActivity.getString(R.string.fill_pos_glycemia);
+        holder.posGlycemiaText.setText(meal.getPosGlycemia() == 0 ? posGlycemiaPlaceHolder : meal.getPosGlycemia().toString());
+        String mealType = mActivity.getMealType(meal.getType());
+        holder.mealType.setText(isOrientationHorizontal() ? mealType : DataHelper.removeBreakLine(mealType));
         holder.dosage.setText(meal.getDosageInsulin().toString());
-        holder.itemView.setAlpha(meal.getSelected() ? 0.6f : 1);
-        Picasso.with(mContext)
+        holder.itemView.setAlpha(mealHolder.isSelected() ? 0.6f : 1);
+        Picasso.with(mActivity)
                 .load("file://" + meal.getPathImage())
                 .fit()
                 .into(holder.mealPhoto);
-
     }
 
     @Override
     public int getItemCount() {
-        return meals.size();
+        return mealHolders.size();
     }
 
     public List<Meal> getRemoveMeals() {
@@ -107,28 +108,32 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
         @OnClick(R.id.item_meal)
         public void onClick() {
-            Meal meal = meals.get(getAdapterPosition());
-            if(mContext.isGarbageItemVisible()) {
-                if(removeMeals.contains(meal)) {
-                    meal.setSelected(false);
-                    removeMeals.remove(meal);
-                } else {
-                    meal.setSelected(true);
-                    removeMeals.add(meal);
+            if(!isOrientationHorizontal()) {
+                MealHolder mealHolder = mealHolders.get(getAdapterPosition());
+                Meal meal = mealHolder.getMeal();
+                if(mActivity.isGarbageItemVisible()) {
+                    if(removeMeals.contains(meal)) {
+                        mealHolder.setSelected(false);
+                        removeMeals.remove(meal);
+                    } else {
+                        mealHolder.setSelected(true);
+                        removeMeals.add(meal);
+                    }
+                    notifyDataSetChanged();
+                } else if (meal.getPosGlycemia() == 0) {
+                    MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
+                    dialogFragment.show(mActivity.getFragmentManager(),"");
                 }
-                notifyDataSetChanged();
-            } else if (meal.getPosGlycemia() == 0) {
-                MealDialogFragment dialogFragment = MealDialogFragment.newInstance(meal.getPathImage());
-                dialogFragment.show(mContext.getFragmentManager(),"");
             }
         }
 
         @OnLongClick(R.id.item_meal)
         public boolean onItemSelectedToDelete() {
             if(!isOrientationHorizontal()) {
-                Meal meal = meals.get(getAdapterPosition());
-                mContext.setVisibleGarbageItem(true);
-                meal.setSelected(true);
+                MealHolder mealHolder = mealHolders.get(getAdapterPosition());
+                Meal meal = mealHolder.getMeal();
+                mActivity.setVisibleGarbageItem(true);
+                mealHolder.setSelected(true);
                 removeMeals.add(meal);
                 notifyDataSetChanged();
             }

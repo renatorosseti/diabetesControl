@@ -10,16 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
-
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.BaseActivity;
 import com.diabetes.glucodaily.meal.OnCapturePerformed;
-import com.diabetes.glucodaily.model.Meal;
+import com.diabetes.glucodaily.model.MealHolder;
 import java.io.File;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -98,7 +95,7 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
         super.onDestroy();
     }
 
-    @Override public void setItems(List<Meal> items) {
+    @Override public void setItems(List<MealHolder> items) {
         hideProgress();
         viewFlipper.setDisplayedChild(items.isEmpty() ? NO_MEAL_AVAILABLE_VIEW : HAVE_MEALS_AVAILABLE_VIEW);
         mMainAdapter = new MainAdapter(this, items, BaseActivity.VERTICAL);
@@ -112,7 +109,7 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
 
     @Override
     public void notifyDataSetChanged() {
-//        mMainAdapter.notifyDataSetChanged();
+
     }
 
     @Override

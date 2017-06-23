@@ -36,14 +36,13 @@ public class DataManager {
     }
 
     public synchronized List<Meal> retrieveMealListType(int mealTypeIndex) {
-        String mealType[] = BaseActivity.getContext().getResources().getStringArray(R.array.meal_type_array);
         List<Meal> meals = null;
         if(mealTypeIndex == BREAKFAST || mealTypeIndex == MORNING_SNACK) {
-            meals = daoSession.getMealDao().queryBuilder().whereOr(MealDao.Properties.Type.eq(getMealType(mealType[BREAKFAST])),MealDao.Properties.Type.eq(getMealType(mealType[MORNING_SNACK]))).orderDesc(MealDao.Properties.Date).list();
+            meals = daoSession.getMealDao().queryBuilder().whereOr(MealDao.Properties.Type.eq(BREAKFAST),MealDao.Properties.Type.eq(MORNING_SNACK)).orderDesc(MealDao.Properties.Date).list();
         } else if(mealTypeIndex == LUNCH || mealTypeIndex == DINNER || mealTypeIndex == NIGHT_SNACK) {
-            meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(getMealType(mealType[mealTypeIndex]))).orderDesc(MealDao.Properties.Date).list();
+            meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(mealTypeIndex)).orderDesc(MealDao.Properties.Date).list();
         } else if(mealTypeIndex == AFTERNOON_COFFEE) {
-            meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(getMealType(mealType[AFTERNOON_COFFEE]))).orderDesc(MealDao.Properties.Date).list();
+            meals = daoSession.getMealDao().queryBuilder().where(MealDao.Properties.Type.eq(AFTERNOON_COFFEE)).orderDesc(MealDao.Properties.Date).list();
         }
         return meals.size() > 0 ? meals : meals;
     }

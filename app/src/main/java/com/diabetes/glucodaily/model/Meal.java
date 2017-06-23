@@ -14,8 +14,7 @@ public class Meal {
     private Integer sportLevel;
     private String description;
     private String pathImage;
-    private String type;
-    private Boolean selected;
+    private Integer type;
 
     public Meal() {
     }
@@ -24,7 +23,7 @@ public class Meal {
         this.id = id;
     }
 
-    public Meal(Long id, Integer preGlycemia, Integer posGlycemia, Float dosageInsulin, java.util.Date date, Integer sportLevel, String description, String pathImage, String type, Boolean selected) {
+    public Meal(Long id, Integer preGlycemia, Integer posGlycemia, Float dosageInsulin, java.util.Date date, Integer sportLevel, String description, String pathImage, Integer type) {
         this.id = id;
         this.preGlycemia = preGlycemia;
         this.posGlycemia = posGlycemia;
@@ -34,7 +33,6 @@ public class Meal {
         this.description = description;
         this.pathImage = pathImage;
         this.type = type;
-        this.selected = selected;
     }
 
     public Long getId() {
@@ -101,20 +99,12 @@ public class Meal {
         this.pathImage = pathImage;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
-    }
-
-    public Boolean getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Boolean selected) {
-        this.selected = selected;
     }
 
 }

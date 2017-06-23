@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.diabetes.glucodaily.R;
@@ -25,10 +26,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public static final Boolean HORIZONTAL = true;
 
+    protected ArrayAdapter<CharSequence> mealTypeAdapter;
+
     protected void init() {
         if(mContext == null) {
             mContext = getApplicationContext();
             activity = this;
+            mealTypeAdapter = ArrayAdapter.createFromResource(this, R.array.meal_type_array, R.layout.spinner_item);
         }
     }
 
@@ -53,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public Boolean isGarbageItemVisible() {
-        return mGarbageItem.isVisible();
+        return mGarbageItem != null && mGarbageItem.isVisible();
     }
 
     public void showProgress() {
@@ -69,5 +73,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    public String getMealType(int position) {
+        return mealTypeAdapter.getItem(position).toString();
     }
 }

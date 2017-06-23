@@ -19,7 +19,8 @@
     <string name="cancel">Cancelar</string>
     <string name="save">Salvar</string>
     <string name="next">Próximo</string>
-    <string name="glycemia_before">Glicemia antes </string>
+    <string name="glycemia_before">Glicemia antes</string>
+    <string name="glycemia_actual">Glicemia atual</string>
     <string name="glycemia_afterwards">Glicemia depois</string>
     <string name="dosage">Dose </string>
     <string name="dosage_insulin">Dose de insulina</string>

@@ -2,12 +2,13 @@ package com.diabetes.glucodaily.main;
 
 import com.diabetes.glucodaily.core.presenter.Presenter;
 import com.diabetes.glucodaily.model.Meal;
+import com.diabetes.glucodaily.model.MealHolder;
 import com.diabetes.glucodaily.service.OnMealServicePerformed;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainPresenter extends Presenter<MainView> implements OnMealServicePerformed {
-
-    private List<Meal> mealsRetrieved;
 
     public MainPresenter(MainView view) {
         super(view);
@@ -26,8 +27,11 @@ public class MainPresenter extends Presenter<MainView> implements OnMealServiceP
 
     @Override
     public void loadMeals(List<Meal> items) {
-        this.mealsRetrieved = items;
-        view.setItems(mealsRetrieved);
+        List<MealHolder> mealHolderList = new ArrayList<>();
+        for (Meal meal : items) {
+            mealHolderList.add(new MealHolder(meal));
+        }
+        view.setItems(mealHolderList);
     }
 
     public void updateMeal(String imagePath,Integer posGlycemia) {

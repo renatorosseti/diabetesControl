@@ -31,8 +31,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
         public final static Property SportLevel = new Property(5, Integer.class, "sportLevel", false, "SPORT_LEVEL");
         public final static Property Description = new Property(6, String.class, "description", false, "DESCRIPTION");
         public final static Property PathImage = new Property(7, String.class, "pathImage", false, "PATH_IMAGE");
-        public final static Property Type = new Property(8, String.class, "type", false, "TYPE");
-        public final static Property Selected = new Property(9, Boolean.class, "selected", false, "SELECTED");
+        public final static Property Type = new Property(8, Integer.class, "type", false, "TYPE");
     };
 
 
@@ -56,8 +55,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
                 "\"SPORT_LEVEL\" INTEGER," + // 5: sportLevel
                 "\"DESCRIPTION\" TEXT," + // 6: description
                 "\"PATH_IMAGE\" TEXT," + // 7: pathImage
-                "\"TYPE\" TEXT," + // 8: type
-                "\"SELECTED\" INTEGER);"); // 9: selected
+                "\"TYPE\" INTEGER);"); // 8: type
     }
 
     /** Drops the underlying database table. */
@@ -111,14 +109,9 @@ public class MealDao extends AbstractDao<Meal, Long> {
             stmt.bindString(8, pathImage);
         }
  
-        String type = entity.getType();
+        Integer type = entity.getType();
         if (type != null) {
-            stmt.bindString(9, type);
-        }
- 
-        Boolean selected = entity.getSelected();
-        if (selected != null) {
-            stmt.bindLong(10, selected ? 1L: 0L);
+            stmt.bindLong(9, type);
         }
     }
 
@@ -140,8 +133,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // sportLevel
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // description
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // pathImage
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // type
-            cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0 // selected
+            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8) // type
         );
         return entity;
     }
@@ -157,8 +149,7 @@ public class MealDao extends AbstractDao<Meal, Long> {
         entity.setSportLevel(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setDescription(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setPathImage(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setType(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setSelected(cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0);
+        entity.setType(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
      }
     
     /** @inheritdoc */

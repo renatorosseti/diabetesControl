@@ -3,8 +3,10 @@ package com.diabetes.glucodaily.meal;
 import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.core.presenter.Presenter;
 import com.diabetes.glucodaily.model.Meal;
+import com.diabetes.glucodaily.model.MealHolder;
 import com.diabetes.glucodaily.service.OnMealServicePerformed;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MealPresenter extends Presenter<MealView> implements OnMealServicePerformed {
@@ -17,7 +19,7 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
 
     private String dosageInsulin;
 
-    private String mealType;
+    private Integer mealTypeIndex;
 
     public MealPresenter(MealView view) {
         super(view);
@@ -42,11 +44,9 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
                 !preGlycemia.isEmpty() &&
                 dosageInsulin != null &&
                 !dosageInsulin.isEmpty() &&
-                mealType != null &&
-                !mealType.isEmpty() &&
                 mFile != null) {
-            mealService.saveMeal(Integer.parseInt(preGlycemia), Float.parseFloat(dosageInsulin), DataHelper.getPath(mFile.getName()), mealType);
-            view.closeActivity();
+            mealService.saveMeal(Integer.parseInt(preGlycemia), Float.parseFloat(dosageInsulin), DataHelper.getPath(mFile.getName()), mealTypeIndex);
+            view.navigateToMainFeed();
         } else {
             view.showErrorMessage();
         }
@@ -54,11 +54,15 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
 
     @Override
     public void loadMeals(List<Meal> items) {
-        view.showMealItems(items);
+        List<MealHolder> mealHolderList = new ArrayList<>();
+        for (Meal meal : items) {
+            mealHolderList.add(new MealHolder(meal));
+        }
+        view.showMealItems(mealHolderList);
     }
 
-    public void setMealType(String mealType) {
-        this.mealType = mealType;
+    public void setMealTypeIndex(Integer mealTypeIndex) {
+        this.mealTypeIndex = mealTypeIndex;
     }
 
     public void setDosage(String dosage) {

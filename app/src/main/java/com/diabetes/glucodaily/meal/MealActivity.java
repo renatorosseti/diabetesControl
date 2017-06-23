@@ -20,7 +20,7 @@ import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.BaseActivity;
 import com.diabetes.glucodaily.main.MainAdapter;
-import com.diabetes.glucodaily.model.Meal;
+import com.diabetes.glucodaily.model.MealHolder;
 import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.Date;
@@ -62,8 +62,6 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     private ArrayAdapter<CharSequence> dosageAdapter;
 
     private ArrayAdapter<CharSequence> glycemiaAdapter;
-
-    private ArrayAdapter<CharSequence> mealTypeAdapter;
 
     private int NO_MEAL_AVAILABLE_VIEW = 1;
 
@@ -125,7 +123,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     }
 
     @Override
-    public void closeActivity() {
+    public void navigateToMainFeed() {
         finish();
     }
 
@@ -140,9 +138,9 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
         mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
-        String mealType = mealTypeAdapter.getItem(mealTypeIndex).toString();
+        String mealType = getMealType(mealTypeIndex);
         spinnerMealType.setText(mealType);
-        presenter.setMealType(DataHelper.removeBreakLine(mealType));
+        presenter.setMealTypeIndex(mealTypeIndex);
         presenter.retrieveHistoricMeal(mealTypeIndex);
     }
 
@@ -224,7 +222,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
                     public void onClick(DialogInterface dialog, int id) {
                         String mealType = mealTypeAdapter.getItem(seekBar.getProgress()).toString();
                         spinnerMealType.setText(mealType);
-                        presenter.setMealType(mealType);
+                        presenter.setMealTypeIndex(mealTypeIndex);
                         presenter.retrieveHistoricMeal(mealTypeIndex);
                     }
                 });
@@ -232,7 +230,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     }
 
     @Override
-    public void showMealItems(List<Meal> meals) {
+    public void showMealItems(List<MealHolder> meals) {
         viewFlipperMeal.setDisplayedChild(meals.isEmpty() ? NO_MEAL_AVAILABLE_VIEW : HAVE_MEALS_AVAILABLE_VIEW);
         MainAdapter adapter = new MainAdapter(this,meals, HORIZONTAL);
         recordedMealList.setAdapter(adapter);

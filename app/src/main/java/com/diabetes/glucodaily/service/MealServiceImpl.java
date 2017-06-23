@@ -28,8 +28,8 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public void saveMeal(Integer preGlycemia, float dosageInsulin, String imageName, String type) {
-        Meal meal = new Meal(null,preGlycemia,0,dosageInsulin,new Date(), 0, "", imageName, type, false);
+    public void saveMeal(Integer preGlycemia, float dosageInsulin, String imageName, Integer type) {
+        Meal meal = new Meal(null,preGlycemia,0,dosageInsulin,new Date(), 0, "", imageName, type);
         mDataManager.addNewMeal(meal);
     }
 
@@ -49,7 +49,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public void retrieveHistoricMeal(OnMealServicePerformed listener, int mealTypeIndex) {
+    public void retrieveHistoricMeal(OnMealServicePerformed listener, Integer mealTypeIndex) {
          listener.loadMeals(mDataManager.retrieveMealListType(mealTypeIndex));
     }
 

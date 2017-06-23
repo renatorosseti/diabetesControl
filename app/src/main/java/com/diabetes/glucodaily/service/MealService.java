@@ -11,9 +11,9 @@ public interface MealService {
 
     void setMealDaoHelper(DataManager dataManager);
 
-    void saveMeal(Integer preGlycemia, float dosageInsulin, String imageName, String type);
+    void saveMeal(Integer preGlycemia, float dosageInsulin, String imageName, Integer type);
 
-    void retrieveHistoricMeal(OnMealServicePerformed listener, int mealTypeIndex);
+    void retrieveHistoricMeal(OnMealServicePerformed listener, Integer mealTypeIndex);
 
     void updateMeal(String imagePath,Integer posGlycemia);
 

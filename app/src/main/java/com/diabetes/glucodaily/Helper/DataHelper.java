@@ -2,24 +2,34 @@ package com.diabetes.glucodaily.Helper;
 
 import android.os.Environment;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
+import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.BaseActivity;
-
 import java.util.Calendar;
 import java.util.Date;
 
 public class DataHelper {
 
     public final static int BREAKFAST = 0;
+
     public final static int MORNING_SNACK = 1;
+
     public final static int LUNCH = 2;
+
     public final static int AFTERNOON_COFFEE = 3;
+
     public final static int DINNER = 4;
+
     public final static int NIGHT_SNACK = 5;
 
     public static String getPath(String imageName) {
         String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(BaseActivity.getContext().getPackageName()).append("/files/").append(imageName).toString();
         return path;
+    }
+
+    public static String getMealTypeByIndex() {
+        return null;
     }
 
     public static String removeBreakLine(String text) {

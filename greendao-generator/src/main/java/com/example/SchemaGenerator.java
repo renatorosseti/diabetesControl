@@ -16,8 +16,7 @@ public class SchemaGenerator {
         meal.addIntProperty("sportLevel");
         meal.addStringProperty("description");
         meal.addStringProperty("pathImage");
-        meal.addStringProperty("type");
-        meal.addBooleanProperty("selected");
+        meal.addIntProperty("type");
         DaoGenerator daoGenerator = new DaoGenerator();
         daoGenerator.generateAll(schema, "./app/src/main/java/");
     }
