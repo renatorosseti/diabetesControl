@@ -69,12 +69,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         final MealHolder mealHolder = mealHolders.get(position);
         final Meal meal = mealHolder.getMeal();
-        holder.preGlycemiaText.setText(meal.getPreGlycemia().toString());
+        holder.preGlycemiaText.setText(meal.getPreGlycemia().toString()  + " mg/dL");
         String posGlycemiaPlaceHolder = isOrientationHorizontal() ? " - " : mActivity.getString(R.string.fill_pos_glycemia);
-        holder.posGlycemiaText.setText(meal.getPosGlycemia() == 0 ? posGlycemiaPlaceHolder : meal.getPosGlycemia().toString());
+        holder.posGlycemiaText.setText(meal.getPosGlycemia() == 0 ? posGlycemiaPlaceHolder : meal.getPosGlycemia().toString() + " mg/dL");
         String mealType = mActivity.getMealType(meal.getType());
         holder.mealType.setText(isOrientationHorizontal() ? mealType : DataHelper.removeBreakLine(mealType));
-        holder.dosage.setText(meal.getDosageInsulin().toString());
+        holder.dosage.setText(meal.getDosageInsulin().toString() + " un");
         holder.itemView.setAlpha(mealHolder.isSelected() ? 0.6f : 1);
         Picasso.with(mActivity)
                 .load("file://" + meal.getPathImage())

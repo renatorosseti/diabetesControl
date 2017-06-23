@@ -34,6 +34,9 @@
     <string name="loading">Carregando...</string>
     <string name="fill_pos_glycemia">Não preenchido</string>
 
+    <string name="un_glycemia">mg/dL</string>
+    <string name="un_dosage">un</string>
+
     <string-array name="dosage_insulin_array">
         <item>1.0</item>
         <item>1.5</item>

@@ -174,7 +174,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.input_meal, null);
         final EditText dosage = (EditText) view.findViewById(R.id.valueInput);
-        dosage.setHint(R.string.dosage);
+        dosage.setHint(R.string.dosage_insulin);
         builder.setView(view);
         builder.setPositiveButton(
                 "Confirmar",
