@@ -24,7 +24,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="36dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -74,7 +74,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8">
+                android:layout_weight="1">
 
                 <TextView
                     style="@style/InfoFont"
@@ -84,7 +84,6 @@
                     android:id="@+id/posGlycemiaText"
                     style="@style/TagFont" />
             </RelativeLayout>
-
 
         </LinearLayout>
     </LinearLayout>

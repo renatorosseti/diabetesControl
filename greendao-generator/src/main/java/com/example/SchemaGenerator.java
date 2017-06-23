@@ -6,7 +6,7 @@ import de.greenrobot.daogenerator.Schema;
 
 public class SchemaGenerator {
     public static void main(String args[]) throws Exception {
-        Schema schema = new Schema(1, "com.diabetes.glucodaily.model");
+        Schema schema = new Schema(2, "com.diabetes.glucodaily.model");
         Entity meal = schema.addEntity("Meal");
         meal.addIdProperty();
         meal.addIntProperty("preGlycemia");
@@ -17,6 +17,7 @@ public class SchemaGenerator {
         meal.addStringProperty("description");
         meal.addStringProperty("pathImage");
         meal.addStringProperty("type");
+        meal.addBooleanProperty("selected");
         DaoGenerator daoGenerator = new DaoGenerator();
         daoGenerator.generateAll(schema, "./app/src/main/java/");
     }

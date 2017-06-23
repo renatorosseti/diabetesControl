@@ -1,17 +1,25 @@
 package com.diabetes.glucodaily.core.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.diabetes.glucodaily.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     private static Context mContext;
 
     private static Activity activity;
+
+    private ProgressDialog progressDialog;
+
+    protected MenuItem mGarbageItem;
 
     public static final Boolean VERTICAL = false;
 
@@ -39,4 +47,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         return param == HORIZONTAL ? size.x : size.y;
     }
 
+    public void setVisibleGarbageItem(boolean visible) {
+        mGarbageItem.setVisible(visible);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(visible);
+    }
+
+    public Boolean isGarbageItemVisible() {
+        return mGarbageItem.isVisible();
+    }
+
+    public void showProgress() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+        }
+        progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    protected void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 }

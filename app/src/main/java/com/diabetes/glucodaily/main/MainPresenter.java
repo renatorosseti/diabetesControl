@@ -7,13 +7,14 @@ import java.util.List;
 
 public class MainPresenter extends Presenter<MainView> implements OnMealServicePerformed {
 
+    private List<Meal> mealsRetrieved;
+
     public MainPresenter(MainView view) {
         super(view);
     }
 
     @Override
     protected void onResume() {
-        view.showProgress();
         mealService.retrieveAllMeals(this);
     }
 
@@ -25,13 +26,19 @@ public class MainPresenter extends Presenter<MainView> implements OnMealServiceP
 
     @Override
     public void loadMeals(List<Meal> items) {
-        view.hideProgress();
-        view.setItems(items);
+        this.mealsRetrieved = items;
+        view.setItems(mealsRetrieved);
     }
 
     public void updateMeal(String imagePath,Integer posGlycemia) {
-
         mealService.updateMeal(imagePath,posGlycemia);
+        mealService.retrieveAllMeals(this);
+    }
+
+    public void removeMeal(List<Meal> meals) {
+        for (Meal meal : meals) {
+            mealService.removeMeal(meal);
+        }
         mealService.retrieveAllMeals(this);
     }
 }

@@ -2,7 +2,7 @@ package com.diabetes.glucodaily.meal;
 
 import android.content.Context;
 
-import com.diabetes.glucodaily.model.DaoManager;
+import com.diabetes.glucodaily.model.DataManager;
 import com.diabetes.glucodaily.model.Meal;
 import org.junit.After;
 import org.junit.Before;
@@ -25,14 +25,14 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
  * Created by Renato Rosseti on 27/04/17.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({DaoManager.class})
+@PrepareForTest({DataManager.class})
 public class MealPresenterTest {
 
     @Mock
     private MealView view;
 
     @Mock
-    private DaoManager mealDaoUtils;
+    private DataManager mealDaoUtils;
 
     @Mock
     private Context context;
@@ -53,8 +53,8 @@ public class MealPresenterTest {
 
     @Test
     public void onResume() {
-        mockStatic(DaoManager.class);
-        PowerMockito.when(DaoManager.getInstance()).thenReturn(mealDaoUtils);
+        mockStatic(DataManager.class);
+        PowerMockito.when(DataManager.getInstance()).thenReturn(mealDaoUtils);
 
         mealPresenter.onResume();
 

@@ -6,9 +6,8 @@ import java.util.List;
 
 public interface MainView extends View {
 
-    void showProgress();
-
-    void hideProgress();
-
     void setItems(List<Meal> items);
+
+    void notifyDataSetChanged();
+
 }

@@ -29,6 +29,7 @@
             <EditText
                 style="@style/TagFont"
                 android:id="@+id/spinnerPosGlycemia"
+                android:gravity="center"
                 android:maxLength="3"
                 android:inputType="number"
                 android:hint="@string/glycemia_afterwards"/>

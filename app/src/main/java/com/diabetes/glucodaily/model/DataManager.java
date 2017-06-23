@@ -7,15 +7,15 @@ import java.util.List;
 
 import static com.diabetes.glucodaily.Helper.DataHelper.*;
 
-public class DaoManager {
+public class DataManager {
 
     private DaoSession daoSession;
 
-    private static DaoManager instance;
+    private static DataManager instance;
 
-    public static DaoManager getInstance() {
+    public static DataManager getInstance() {
         if(instance == null) {
-            instance = new DaoManager();
+            instance = new DataManager();
         }
         return instance;
     }

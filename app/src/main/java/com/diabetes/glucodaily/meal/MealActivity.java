@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,10 +47,13 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     TextView spinnerGlycemia;
 
     @BindView(R.id.spinnerDosage)
-    TextView spinnerDosage;
+    TextView textDosage;
 
     @BindView(R.id.mealCaptured)
     View mViewCaptured;
+
+    @BindView(R.id.viewFlipperMeal)
+    ViewFlipper viewFlipperMeal;
 
     int mealTypeIndex;
 
@@ -60,6 +64,10 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
     private ArrayAdapter<CharSequence> glycemiaAdapter;
 
     private ArrayAdapter<CharSequence> mealTypeAdapter;
+
+    private int NO_MEAL_AVAILABLE_VIEW = 1;
+
+    private int HAVE_MEALS_AVAILABLE_VIEW = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +156,8 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.input_meal, null);
         final EditText glycemiaBefore = (EditText) view.findViewById(R.id.valueInput);
-        glycemiaBefore.setHint(R.string.dosage_meal);
+        glycemiaBefore.setInputType(InputType.TYPE_CLASS_NUMBER);
+        glycemiaBefore.setHint(R.string.glycemia_before);
         builder.setView(view);
         builder.setPositiveButton(
                 "Confirmar",
@@ -167,14 +176,14 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.input_meal, null);
         final EditText dosage = (EditText) view.findViewById(R.id.valueInput);
-        dosage.setHint(R.string.glycemia_before);
+        dosage.setHint(R.string.dosage);
         builder.setView(view);
         builder.setPositiveButton(
                 "Confirmar",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String dosageValue = dosage.getText().toString();
-                        spinnerDosage.setText(dosageValue);
+                        textDosage.setText(dosageValue);
                         presenter.setDosage(dosageValue);
                     }
                 });
@@ -187,16 +196,16 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         View view = getLayoutInflater().inflate(R.layout.input_meal_type, null);
         final SeekBar seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         final TextView mealTypeValue = (TextView) view.findViewById(R.id.valueMealType);
-        mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
-        mealTypeValue.setText(DataHelper.removeBreakLine(mealTypeAdapter.getItem(mealTypeIndex).toString()));
 
+        mealTypeValue.setText(DataHelper.removeBreakLine(mealTypeAdapter.getItem(mealTypeIndex).toString()));
         seekBar.setProgress(mealTypeIndex);
         builder.setView(view);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int position, boolean b) {
-                mealTypeValue.setText(DataHelper.removeBreakLine(mealTypeAdapter.getItem(position).toString()));
                 mealTypeIndex = position;
+                mealTypeValue.setText(DataHelper.removeBreakLine(mealTypeAdapter.getItem(mealTypeIndex).toString()));
+
             }
 
             @Override
@@ -224,6 +233,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
 
     @Override
     public void showMealItems(List<Meal> meals) {
+        viewFlipperMeal.setDisplayedChild(meals.isEmpty() ? NO_MEAL_AVAILABLE_VIEW : HAVE_MEALS_AVAILABLE_VIEW);
         MainAdapter adapter = new MainAdapter(this,meals, HORIZONTAL);
         recordedMealList.setAdapter(adapter);
     }

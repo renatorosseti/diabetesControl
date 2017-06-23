@@ -22,11 +22,16 @@
     <string name="glycemia_before">Glicemia antes </string>
     <string name="glycemia_afterwards">Glicemia depois</string>
     <string name="dosage">Dose </string>
+    <string name="dosage_insulin">Dose de insulina</string>
     <string name="meal">Refeição </string>
     <string name="select_item_error">Por favor, selecione todos os dados da refeição </string>
     <string name="current_glycemia">a glicemia atual </string>
     <string name="dosage_meal">a dosagem </string>
     <string name="meal_type">o nome da refeição </string>
+    <string name="no_meal_message">Nenhuma refeição</string>
+    <string name="available">disponível</string>
+    <string name="loading">Carregando...</string>
+    <string name="fill_pos_glycemia">Não preenchido</string>
 
     <string-array name="dosage_insulin_array">
         <item>1.0</item>

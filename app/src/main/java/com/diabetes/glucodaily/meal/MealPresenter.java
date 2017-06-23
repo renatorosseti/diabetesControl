@@ -38,7 +38,13 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
     }
 
     public void saveMeal() {
-        if(preGlycemia != null && dosageInsulin != null && mealType != null && mFile != null) {
+        if(preGlycemia != null &&
+                !preGlycemia.isEmpty() &&
+                dosageInsulin != null &&
+                !dosageInsulin.isEmpty() &&
+                mealType != null &&
+                !mealType.isEmpty() &&
+                mFile != null) {
             mealService.saveMeal(Integer.parseInt(preGlycemia), Float.parseFloat(dosageInsulin), DataHelper.getPath(mFile.getName()), mealType);
             view.closeActivity();
         } else {
