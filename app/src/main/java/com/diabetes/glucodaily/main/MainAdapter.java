@@ -77,7 +77,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.dosage.setText(meal.getDosageInsulin().toString() + " un");
         holder.itemView.setAlpha(mealHolder.isSelected() ? 0.6f : 1);
         Picasso.with(mActivity)
-                .load("file://" + meal.getPathImage())
+                .load(DataHelper.getImageFile(mActivity,meal.getPathImage()))
                 .fit()
                 .into(holder.mealPhoto);
     }

@@ -22,6 +22,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected MenuItem mGarbageItem;
 
+    protected MenuItem mInfoItem;
+
     public static final Boolean VERTICAL = false;
 
     public static final Boolean HORIZONTAL = true;
@@ -53,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void setVisibleGarbageItem(boolean visible) {
         mGarbageItem.setVisible(visible);
+        mInfoItem.setVisible(!visible);
         getSupportActionBar().setDisplayHomeAsUpEnabled(visible);
     }
 
@@ -76,6 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public String getMealType(int position) {
-        return mealTypeAdapter.getItem(position).toString();
+        return mealTypeAdapter != null ? mealTypeAdapter.getItem(position).toString() : "";
     }
 }

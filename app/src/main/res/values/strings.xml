@@ -21,7 +21,8 @@
     <string name="fill_pos_glycemia">Não preenchido</string>
     <string name="un_glycemia">mg/dL</string>
     <string name="un_dosage">un</string>
-
+    <string name="info">Info</string>
+    <string name="warning_picture">Não foi possível carregar a imagem.</string>
 
     <string-array name="dosage_insulin_array">
         <item>1.0</item>

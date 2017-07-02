@@ -1,11 +1,18 @@
 package com.diabetes.glucodaily.Helper;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.core.ui.BaseActivity;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,7 +31,7 @@ public class DataHelper {
     public final static int NIGHT_SNACK = 5;
 
     public static String getPath(String imageName) {
-        String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(BaseActivity.getContext().getPackageName()).append("/files/").append(imageName).toString();
+        String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append(imageName).toString();
         return path;
     }
 
@@ -55,4 +62,20 @@ public class DataHelper {
             return NIGHT_SNACK;
         }
     }
+
+    public static File getImageFile(Context context, String name) {
+        String path = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/Android/data/").append(context.getPackageName()).append("/files/").toString();
+        name.replace(path,"");
+        File f = new File(Environment.getExternalStorageDirectory().toString());
+        for (File temp : f.listFiles()) {
+
+            if (temp.getName().equals(name)) {
+                return temp;
+            }
+
+        }
+        return null;
+    }
+
+
 }

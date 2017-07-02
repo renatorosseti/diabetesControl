@@ -9,16 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.diabetes.glucodaily.Helper.DataHelper;
 import com.diabetes.glucodaily.R;
 import com.diabetes.glucodaily.meal.OnCapturePerformed;
 import com.squareup.picasso.Picasso;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -84,7 +80,7 @@ public class MealDialogFragment extends DialogFragment {
             }
         });
         Picasso.with(getActivity())
-                .load("file://" + imagePath)
+                .load(DataHelper.getImageFile(getActivity(),imagePath))
                 .fit()
                 .into(mealPhoto);
     }

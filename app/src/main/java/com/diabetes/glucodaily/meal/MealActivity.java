@@ -1,7 +1,12 @@
 package com.diabetes.glucodaily.meal;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,8 +28,11 @@ import com.diabetes.glucodaily.main.MainAdapter;
 import com.diabetes.glucodaily.model.MealHolder;
 import com.squareup.picasso.Picasso;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -67,6 +75,10 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
 
     private int HAVE_MEALS_AVAILABLE_VIEW = 0;
 
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private String mMealName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,13 +88,48 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         presenter = new MealPresenter(this);
-        if (null == savedInstanceState) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.content_capture, CameraFragment.newInstance())
-                    .commit();
-        }
-
+        dispatchTakePictureIntent();
     }
+
+
+    private void dispatchTakePictureIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE);
+        mMealName = "meal_"+new Date().getTime()+".jpg";
+        File f = new File(android.os.Environment.getExternalStorageDirectory(), mMealName);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        File mealPhoto = DataHelper.getImageFile(this,mMealName);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if(mealPhoto != null) {
+                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                Bitmap bitmap =  BitmapFactory.decodeFile(mealPhoto.getAbsolutePath(), bitmapOptions);
+                FileOutputStream output = null;
+                try {
+                    output = new FileOutputStream(mealPhoto);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, output);
+                    output.flush();
+                    output.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                loadCapturedFile(mealPhoto);
+            } else {
+                showToastMessage(getString(R.string.un_dosage));
+            }
+
+
+
+
+        }
+    }
+
 
     private void setUpSpinners() {
         dosageAdapter = ArrayAdapter.createFromResource(this, R.array.dosage_insulin_array, R.layout.spinner_item);
@@ -132,9 +179,10 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         super.onDestroy();
     }
 
+
     @Override
     public void loadCapturedFile(File file) {
-        presenter.setFile(file);
+        presenter.setFile(mMealName);
         viewFlipper.showNext();
         Picasso.with(this).load(file).into(imageCaptured);
         mealTypeIndex = DataHelper.getMealTypeRecommendation(new Date());
@@ -235,6 +283,7 @@ public class MealActivity extends BaseActivity implements OnCapturePerformed, Me
         MainAdapter adapter = new MainAdapter(this,meals, HORIZONTAL);
         recordedMealList.setAdapter(adapter);
     }
+
 
     @Override
     public void showErrorMessage() {

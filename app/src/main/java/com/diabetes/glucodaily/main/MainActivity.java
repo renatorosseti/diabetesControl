@@ -1,6 +1,7 @@
 package com.diabetes.glucodaily.main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -70,6 +71,7 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         mGarbageItem = menu.getItem(0);
+        mInfoItem = menu.getItem(1);
         setVisibleGarbageItem(false);
         return super.onCreateOptionsMenu(menu);
     }
@@ -81,6 +83,9 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
                 setVisibleGarbageItem(false);
                 showProgress();
                 mPresenter.removeMeal(mMainAdapter.getRemoveMeals());
+                break;
+            case R.id.info_action:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=0psdfZc6bS8")));
                 break;
             case android.R.id.home:
                 setVisibleGarbageItem(false);
@@ -100,6 +105,15 @@ public class MainActivity extends BaseActivity implements MainView, OnCapturePer
         viewFlipper.setDisplayedChild(items.isEmpty() ? NO_MEAL_AVAILABLE_VIEW : HAVE_MEALS_AVAILABLE_VIEW);
         mMainAdapter = new MainAdapter(this, items, BaseActivity.VERTICAL);
         mRecyclerView.setAdapter(mMainAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isGarbageItemVisible()) {
+            setVisibleGarbageItem(false);
+            mMainAdapter.setMealsChecked();
+        }
     }
 
     @Override

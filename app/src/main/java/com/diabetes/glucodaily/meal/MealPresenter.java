@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MealPresenter extends Presenter<MealView> implements OnMealServicePerformed {
 
-    private File mFile;
+    private String mFileName;
 
     private String preGlycemia;
 
@@ -27,7 +27,7 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
 
     @Override
     protected void onResume() {
-//        mealService.retrieveAllMeals(this);
+
     }
 
     @Override
@@ -44,8 +44,8 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
                 !preGlycemia.isEmpty() &&
                 dosageInsulin != null &&
                 !dosageInsulin.isEmpty() &&
-                mFile != null) {
-            mealService.saveMeal(Integer.parseInt(preGlycemia), Float.parseFloat(dosageInsulin), DataHelper.getPath(mFile.getName()), mealTypeIndex);
+                mFileName != null) {
+            mealService.saveMeal(Integer.parseInt(preGlycemia), Float.parseFloat(dosageInsulin), mFileName, mealTypeIndex);
             view.navigateToMainFeed();
         } else {
             view.showErrorMessage();
@@ -77,7 +77,7 @@ public class MealPresenter extends Presenter<MealView> implements OnMealServiceP
         this.preGlycemia = preGlycemia;
     }
 
-    public void setFile(File file) {
-        this.mFile = file;
+    public void setFile(String fileName) {
+        this.mFileName = fileName;
     }
 }
